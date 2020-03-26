@@ -1,0 +1,10 @@
+Package      Version
+------------ -------
+asgiref      3.2.7  
+Django       3.0.4  
+django-bulma 0.6.0  
+pip          20.0.2 
+pytz         2019.3 
+setuptools   45.2.0 
+sqlparse     0.3.1  
+wheel        0.34.2 
