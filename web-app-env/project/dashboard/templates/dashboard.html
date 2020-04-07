@@ -1,58 +1,133 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block page_content %}
 
-<div class="row bg-info">
-    <div class="col-lg-12 bg-info">
-      <h1 id="covid-19-sentiment-analysis" class=" display-3 text-center text-light">COVID-19 Sentiment Analysis</h1>
-      
+
+<section id="scroll-counter-data">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <h1 class="counter">Infected Cases</h1>
+        <hr>
+      </div>
+      <div class="col-lg-4">
+        <h1 class="counter">Deaths</h1>
+        <hr>
+      </div>
+      <div class="col-lg-4">
+        <h1 class="counter">Recoveries</h1>
+        <hr>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Side-scrolling (auto and manual) with API-streamed data inside   -->
+<!-- Segregating Jumbotron with space in the middle: lg-4; gunmetal col -->
+
+<section id="data-section-A">
+  <div class="row">
+    <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is the first data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4 in-box-line">
+    {% autoescape off %}
+        {{ plot_div.0 }}
+    {% endautoescape %}
+  </div>
+  </div>
+
+</section>
+
+<section id="data-section-B">
+  <div class="row justify-content-end">
+    <div class="jumbotron col-lg-5 mr-5 boxed-font">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is the second data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4 in-box-line">
+    {% autoescape off %}
+        {{ plot_div.1 }}
+    {% endautoescape %}
+    </div>
+  </div>
+
+</section>
+
+<section id="data-section-C">
+  <div class="row">
+    <div class="jumbotron col-lg-5 ml-5 boxed-font">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is the third data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4 in-box-line">
+    {% autoescape off %}
+        {{ plot_div.2 }}
+    {% endautoescape %}
+  </div>
+  </div>
+
+</section>
+
+<section id="data-section-D">
+  <div class="row justify-content-end">
+    <div class="jumbotron col-lg-5 mr-5 mb-5 boxed-font">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is the final data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4 in-box-line">
+    {% autoescape off %}
+        {{ plot_div.3 }}
+    {% endautoescape %}
+    </div>
+  </div>
+
+</section>
+
+
+<!--
+<div class="row">
+    <div class="col-xs-12 col-lg-2">
+
+    </div>
+    <div class="col-lg-2">
+        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+                <p class="card-text">53</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+                <p class="card-text">53</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+                <p class="card-text">53</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+                <p class="card-text">53</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-lg-2">
-      
-    </div>
-    <div class="col-lg-2">
-        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body text-secondary">
-                <p class="card-text">53</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body text-secondary">
-                <p class="card-text">53</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body text-secondary">
-                <p class="card-text">53</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body text-secondary">
-                <p class="card-text">53</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-      
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-xs-12 col-lg-2">
-      
     </div>
     <div class="col-lg-2">
         <div class="card border-secondary mb-3 mt-3 mx-5" style="max-width: 20rem;">
@@ -87,44 +162,14 @@
         </div>
     </div>
     <div class="col-lg-2">
-      
+
     </div>
 </div>
 
 
 
-<div class="row">
-    <div class="col-lg-6">
-        {% autoescape off %}
-            {{ plot_div.0 }}
-        {% endautoescape %}
-    </div>
-    <div class="col-lg-6">
-        {% autoescape off %}
-            {{ plot_div.1 }}
-        {% endautoescape %}
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-6">
-        {% autoescape off %}
-            {{ plot_div.2 }}
-        {% endautoescape %}
-    </div>
-    <div class="col-lg-6">
-        {% autoescape off %}
-            {{ plot_div.3 }}
-        {% endautoescape %}
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-12">
-      
-    </div>
-</div>
 
 
 {% endblock %}
-

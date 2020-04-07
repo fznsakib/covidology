@@ -6,7 +6,7 @@ import copy
 
 
 def dashboard(request):
-    x_data = [0, 1, 2, 3]
+    x_data = [0, 1, 2, 3, 4, 5, 6]
     y_data = [x ** 2 for x in x_data]
     plot0_div = plot(
         [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
