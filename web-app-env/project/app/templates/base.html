@@ -15,11 +15,13 @@
 
     <nav class="navbar navbar-dark " style="background: #2d3142;">
       <div class="container-fluid">
-        <a class="navbar-brand" href=""><i class="fas fa-lungs-virus fa-2x mt-1"></i>
+        <a class="navbar-brand" href="{% url 'dashboard'%}"><i class="fas fa-lungs-virus fa-2x mt-1"></i>
           <span id=navbar-text >Coronavirus Sentiment Analysis</span>
+          <a class="nav-link" href="{% url 'map'%}">Map</a>
         </a>
           <span id=navbar-text class="justify-content-end mr-3" >Applied Data Science: Group III</span>
       </div>
+      
     </nav>
     {% block page_content %}{% endblock %}
 
