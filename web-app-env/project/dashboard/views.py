@@ -26,3 +26,7 @@ def dashboard(request):
     )
 
     return render(request, "dashboard.html", context={"plot_div": [plot0_div, plot1_div, plot2_div, plot3_div]})
+
+def map(request):
+    return render(request, "map.html", context={})
+    
