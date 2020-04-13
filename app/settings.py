@@ -25,7 +25,7 @@ SECRET_KEY = "80lx@jgg0(=z2u4kcnqhhk(3$#@!s324k7_lqf5jvzodsgadb_"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['covidology.herokuapp.com']
 
 
 # Application definition
