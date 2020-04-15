@@ -36,9 +36,13 @@ def map(request):
 
     latest_date = df.columns[-1]
     df = df.rename(columns={latest_date : 'Confirmed cases'})
+    # Add column and concatenate name is province is given
+    join_province_and_country = lambda x, y: y if pd.isnull(x) else x + ', ' + y
+    df['Location'] = df['Province/State']
+    df['Location'] = df['Location'].combine(df['Country/Region'], join_province_and_country)
     fig = px.scatter_mapbox(df, lat="Lat", lon="Long", color='Confirmed cases', size='Confirmed cases',
                   color_continuous_scale=px.colors.sequential.Peach, size_max=50, zoom=2,
-                  hover_name="Country/Region", mapbox_style='carto-darkmatter', title='Confirmed COVID-19 Cases as of ' + latest_date)
+                  hover_name="Location", mapbox_style='carto-darkmatter', title='Confirmed COVID-19 Cases as of ' + latest_date)
 
     fig.update_layout(
         autosize=True,
