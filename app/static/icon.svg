@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000px" height="1000px" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="virus-copy" transform="translate(0.000000, 24.000000)" stroke="#F16B6B">
+            <path d="M778.765693,288.909784 L657.57194,288.933643 L657.560538,346.851388 L778.754292,346.827528 L778.765693,288.909784 Z" id="Rectangle" stroke-width="10" transform="translate(718.163116, 317.880586) rotate(-39.000000) translate(-718.163116, -317.880586) "></path>
+            <circle id="Oval-Copy-3" stroke-width="15" cx="829" cy="230" r="80.5"></circle>
+            <path d="M465.030837,208.350153 L465.033706,261.46288 L544.569462,261.600919 L544.566593,208.488193 L465.030837,208.350153 Z" id="Rectangle" stroke-width="10" transform="translate(504.800150, 234.975536) rotate(-84.000000) translate(-504.800150, -234.975536) "></path>
+            <circle id="Oval-Copy-3" stroke-width="15" transform="translate(515.048490, 130.512577) rotate(-45.000000) translate(-515.048490, -130.512577) " cx="515.04849" cy="130.512577" r="68.1325072"></circle>
+            <path d="M373.876219,776.831243 L373.876219,825.456177 L454.953402,825.579125 L454.953402,776.954192 L373.876219,776.831243 Z" id="Rectangle" stroke-width="10" transform="translate(414.414810, 801.205184) rotate(106.000000) translate(-414.414810, -801.205184) "></path>
+            <ellipse id="Oval-Copy-3" stroke-width="15" transform="translate(392.713846, 878.858182) rotate(145.000000) translate(-392.713846, -878.858182) " cx="392.713846" cy="878.858182" rx="44.2043792" ry="44.2114977"></ellipse>
+            <path d="M103.929761,716.591718 L103.932729,765.22912 L317.718689,765.328281 L317.71572,716.690879 L103.929761,716.591718 Z" id="Rectangle" stroke-width="10" transform="translate(210.824225, 740.959999) rotate(141.000000) translate(-210.824225, -740.959999) "></path>
+            <circle id="Oval-Copy-3" stroke-width="15" transform="translate(75.500000, 847.500000) rotate(180.000000) translate(-75.500000, -847.500000) " cx="75.5" cy="847.5" r="68"></circle>
+            <path d="M158.460765,238.403608 L158.495718,289.815599 L355.3038,290.166085 L355.268848,238.754094 L158.460765,238.403608 Z" id="Rectangle" stroke-width="10" transform="translate(256.882283, 264.284846) rotate(229.000000) translate(-256.882283, -264.284846) "></path>
+            <ellipse id="Oval-Copy-3" stroke-width="15" transform="translate(135.802469, 114.243506) rotate(264.000000) translate(-135.802469, -114.243506) " cx="135.802469" cy="114.243506" rx="95.9362335" ry="95.8955165"></ellipse>
+            <path d="M685.84942,665.462211 L685.867825,714.100408 L836.374232,714.268173 L836.355827,665.629976 L685.84942,665.462211 Z" id="Rectangle" stroke-width="10" transform="translate(761.111826, 689.865192) rotate(37.000000) translate(-761.111826, -689.865192) "></path>
+            <ellipse id="Oval-Copy-3" stroke-width="15" transform="translate(888.324846, 783.483784) rotate(76.000000) translate(-888.324846, -783.483784) " cx="888.324846" cy="783.483784" rx="84.355791" ry="84.3231512"></ellipse>
+            <circle id="Oval" stroke-width="30" cx="488" cy="520" r="238"></circle>
+        </g>
+    </g>
+</svg>
