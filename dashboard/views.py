@@ -40,6 +40,19 @@ def map(request):
                   color_continuous_scale=px.colors.sequential.Peach, size_max=50, zoom=2,
                   hover_name="Country/Region", mapbox_style='carto-darkmatter', title='Confirmed COVID-19 Cases as of ' + latest_date)
 
+    fig.update_layout(
+        autosize=True,
+        # width=500,
+        height=800,
+        # margin=dict(
+        #     l=50,
+        #     r=50,
+        #     b=100,
+        #     t=100,
+        #     pad=4
+        # ),
+        # paper_bgcolor="#75DEAA",
+    )
     figure = plot(fig, output_type="div")
 
 
