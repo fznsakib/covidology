@@ -2,6 +2,10 @@
 {% load static %}
 {% block page_content %}
 
-<h1>Map Test</h1>
-
+<h1>Map</h1>
+  <section id="map">
+    {% autoescape off %}
+        {{ map_div }}
+    {% endautoescape %}
+  </section>
 {% endblock %}
