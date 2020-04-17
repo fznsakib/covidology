@@ -3,9 +3,9 @@ from plotly.offline import plot
 from plotly.graph_objs import Scatter
 import pandas as pd
 import plotly.express as px
-
 import copy
 
+import dashboard.data as data
 
 def dashboard(request):
     x_data = [0, 1, 2, 3, 4, 5, 6]
@@ -27,10 +27,13 @@ def dashboard(request):
         output_type="div",
     )
 
+    global_cases = data.get_global()
+    top10 = data.get_top10()
+
     return render(request, "dashboard.html", context={"plot_div": [plot0_div, plot1_div, plot2_div, plot3_div]})
 
 def map(request):
-    df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+    df = pd.read_csv(data.urls['confirmed'])
     df.drop(df.loc[df['Country/Region']=='Diamond Princess'].index, inplace=True) # Negative value for some reason
     df.drop(df.loc[df['Province/State']=='Diamond Princess'].index, inplace=True)
 
