@@ -34,6 +34,7 @@ def dashboard(request):
 
 def map(request):
     df = pd.read_csv(data.urls['confirmed'])
+    df_deaths = pd.read_csv(data.urls['deaths'])
     df.drop(df.loc[df['Country/Region']=='Diamond Princess'].index, inplace=True) # Negative value for some reason
     df.drop(df.loc[df['Province/State']=='Diamond Princess'].index, inplace=True)
 
@@ -43,9 +44,13 @@ def map(request):
     join_province_and_country = lambda x, y: y if pd.isnull(x) else x + ', ' + y
     df['Location'] = df['Province/State']
     df['Location'] = df['Location'].combine(df['Country/Region'], join_province_and_country)
+    df['Deaths'] = df_deaths[df_deaths.columns[-1]]
+    list_of_hover_data = ["Confirmed cases","Deaths"]
     fig = px.scatter_mapbox(df, lat="Lat", lon="Long", color='Confirmed cases', size='Confirmed cases',
                   color_continuous_scale=px.colors.sequential.Peach, size_max=50, zoom=2,
-                  hover_name="Location", mapbox_style='carto-darkmatter', title='Confirmed COVID-19 Cases as of ' + latest_date)
+                  hover_name="Location", hover_data=list_of_hover_data, mapbox_style='carto-darkmatter', title='Confirmed COVID-19 Cases as of '
+                  + latest_date
+                  + " (source:https://github.com/CSSEGISandData/COVID-19)")
 
     fig.update_layout(
         autosize=True,
