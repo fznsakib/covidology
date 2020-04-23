@@ -43,6 +43,7 @@ def map(request):
     df_deaths = pd.read_csv(data.urls['deaths'])
     df.drop(df.loc[df['Country/Region']=='Diamond Princess'].index, inplace=True) # Negative value for some reason
     df.drop(df.loc[df['Province/State']=='Diamond Princess'].index, inplace=True)
+    df.drop(df.loc[df['Province/State']=='Grand Princess'].index, inplace=True)
 
     latest_date = df.columns[-1]
     df = df.rename(columns={latest_date : 'Confirmed cases'})
