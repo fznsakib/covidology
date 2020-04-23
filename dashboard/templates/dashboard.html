@@ -5,12 +5,14 @@
 <div class="container-fluid scroll-counter-data">
   <div class="row">
     <div class="scroll-action col-lg-4">
-      <h1 class="counter">UK</h1>
+      <h1 id="firstPlace" class="counter">UK</h1>
       <hr>
+      <h2 id="firstPlaceCount" class="counter">Default</h2>
     </div>
     <div class="scroll-action col-lg-4">
-      <h1 class="counter">USA</h1>
+      <h1 id="secondPlace" class="counter">USA</h1>
       <hr>
+      <h2 id="secondPlaceCount" class="counter">Default</h2>
     </div>
     <div class="scroll-action col-lg-4">
       <h1 class="counter">China</h1>
@@ -64,7 +66,7 @@
     <p class="lead">This is the first data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
     <hr class="my-4 in-box-line">
     {% autoescape off %}
-        {{ plot_div.0 }}
+        {{ plot_div.4 }}
     {% endautoescape %}
   </div>
   </div>

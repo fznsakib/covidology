@@ -1,12 +1,10 @@
-// $(".col-lg-4").on('animationend', function(){
-//   $(this).style.animation = 'none';
-//   $(this).offsetHeight;
-//   $(this).style.animation = null;
-//
-// });
-//
-// $(".scroll-reverse-action").on('animationend', function(){
-//   $(this).addClass("scroll-action");
-//   $(this).removeClass("scroll-reverse-action");
-//
-// });
+var countryA = $(".ytick")[0].firstChild.textContent;
+var casesA = $(".ytick")[1].firstChild.textContent;
+
+var countryB = $(".ytick2")[1].firstChild.textContent;
+var casesB = $(".ytick2")[0].firstChild.textContent;
+
+$("#firstPlace").text(countryB);
+$("#firstPlaceCount").text("Cases: " + casesB);
+$("#secondPlace").text(countryA);
+$("#secondPlaceCount").text("Cases: " + casesA);
