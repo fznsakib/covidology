@@ -7,7 +7,10 @@ import copy
 
 import dashboard.data as data
 
-def dashboard(request):
+from dashboard.models import Tweet
+
+def dashboard(request):   
+
     x_data = [0, 1, 2, 3, 4, 5, 6]
     y_data = [x ** 2 for x in x_data]
     m_data = [i for i in range(10)]
