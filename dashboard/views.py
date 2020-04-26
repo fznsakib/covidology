@@ -1,19 +1,23 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 import pandas as pd
 import plotly.express as px
 import copy
+import json
 
 import dashboard.data as data
 
 from dashboard.models import Tweet
+from django.http import JsonResponse
 
-def dashboard(request):   
+
+
+def dashboard(request):
 
     x_data = [0, 1, 2, 3, 4, 5, 6]
     y_data = [x ** 2 for x in x_data]
-    m_data = [i for i in range(10)]
     plot0_div = plot(
         [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
         output_type="div",
@@ -30,16 +34,24 @@ def dashboard(request):
         [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
         output_type="div",
     )
-
     global_cases = data.get_global()
     top10 = data.get_top10()
+    top10_countries, top10_cases = zip(*top10)
 
-    plot4_div = plot(
-        [Scatter(x=m_data, y=top10[0:], mode="lines", name="test", opacity=0.8, marker_color="green")],
-        output_type="div",
-    )
+    return render(request, "dashboard.html", context={"plot_div": [plot0_div, plot1_div, plot2_div, plot3_div],
+                                                      "country_metrics": [i for i in top10_countries ],
+                                                      "cases_metrics": [j for j in top10_cases]
+                                                      })
 
-    return render(request, "dashboard.html", context={"plot_div": [plot0_div, plot1_div, plot2_div, plot3_div,plot4_div]})
+
+# global_cases = data.get_global()
+# top10 = data.get_top10()
+# def scrollbar(request):
+#     scrolldata = json.dumps(top10)
+#     context={'metrics': top10}
+#     return render(request, 'dashboard.html',context)
+
+
 
 def map(request):
     df = pd.read_csv(data.urls['confirmed'])
