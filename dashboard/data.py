@@ -8,16 +8,16 @@ urls =  {
 
 def get_global():
     cases = []
-    
+
     df = pd.read_csv(urls['confirmed'])
     cases.append(df.iloc[:,-1].sum())
-    
+
     df = pd.read_csv(urls['recovered'])
     cases.append(df.iloc[:,-1].sum())
-    
+
     df = pd.read_csv(urls['deaths'])
     cases.append(df.iloc[:,-1].sum())
-    
+
     return cases
 
 def get_top10():
@@ -25,26 +25,23 @@ def get_top10():
 
     # Get top 10 largest by cases
     df_confirmed = df_confirmed.nlargest(10, df_confirmed.columns[-1])
-    
+
     top10 = []
     top10_dict = {}
-    
+
     current_date = df_confirmed.iloc[:,-1].name
-    
+
     # Get country name and number of cases for each country
     for index, row in df_confirmed.iterrows():
         country = ""
-        
+
         # If there is state named, add to country name
         if not str(row["Province/State"]) == "nan":
             country = str(row["Province/State"]) + ', '
-        
+
         country += row["Country/Region"]
         cases = row[current_date]
-        
-        top10.append([country, cases])
-        
-    return top10
 
-    
-    
+        top10.append([country, cases])
+
+    return top10
