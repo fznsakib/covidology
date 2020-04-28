@@ -7,7 +7,7 @@ class Tweet(models.Model):
     date = models.DateField(("Date"), default=date.today)
     time = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
-    tweet = models.TextField(max_length=100)
+    tweet = models.TextField()
     city = models.CharField(max_length=100)
     replies_count = models.IntegerField()
     retweets_count = models.IntegerField()
@@ -23,3 +23,32 @@ class Tweet(models.Model):
     
     def __unicode__(self):
         return self.first
+
+class Article(models.Model):
+    article_id = models.TextField()
+    date = models.DateField(("Date"), default=date.today)
+    section = models.CharField(max_length=100)
+    headline = models.TextField()
+    url = models.TextField()
+    article = models.TextField()
+    
+    class Meta:
+        ordering = ('date',)
+    
+    def __unicode__(self):
+        return self.first
+
+class FTSE(models.Model):
+    date = models.DateField(("Date"), default=date.today)
+    open = models.FloatField()
+    close = models.FloatField()
+    low = models.FloatField()
+    high = models.FloatField()
+    volume = models.CharField(max_length=100)
+    
+    class Meta:
+        ordering = ('date',)
+    
+    def __unicode__(self):
+        return self.first
+    
