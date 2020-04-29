@@ -133,6 +133,6 @@ def compute_sentiment_ratio():
                     "Glasgow": sentiment_dict["Glasgow"][i],
                     "Dublin": sentiment_dict["Dublin"][i],
                     "Cardiff": sentiment_dict["Cardiff"][i],
-                    "Total": sentiment_dict["Total"][i]
+                    "Total": sentiment_dict["Total"][i],
                 }
             )
