@@ -94,10 +94,10 @@ def city_sentiment():
                 opacity=0.8,
             ),
         ],
-        height=600,
-        width=800,
+        # height=400,
+        # width=600,
     )
-
+    # config={'responsive': True}
     output = plot(dict(data=data, layout=layout), output_type="div")
 
     return output

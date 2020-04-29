@@ -107,11 +107,27 @@
 <!-- Side-scrolling (auto and manual) with API-streamed data inside   -->
 <!-- Segregating Jumbotron with space in the middle: lg-4; gunmetal col -->
 
+<section id="map">
+  <div class="row justify-content-center">
+    <div class="jumbotron col-lg-8 ml-5 mt-5 boxed-font">
+      <h1 class="display-4 map-text">John Hopkins Map Data</h1>
+      <p class="lead map-text">This is the John Hopkins Bubble Map data that shows the number of confirmed cases as well as deaths
+      in a particular country across the world. </p>
+      <hr class="my-4 in-box-line">
+      {% autoescape off %}
+          {{ plot_div.4 }}
+      {% endautoescape %}
+    </div>
+  </div>
+
+</section>
+
 <section id="data-section-A">
   <div class="row">
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is the first data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <h1 class="display-4">Sentiment Log Ratio between Positive and Negative Tweets</h1>
+      <p class="lead">The following is a time-series graph illustrating the contrast between positive and negative tweets
+      about Coronavirus in the UK across a variety of cities.</p>
     <hr class="my-4 in-box-line">
     {% autoescape off %}
         {{ plot_div.0 }}

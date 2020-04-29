@@ -10,14 +10,14 @@
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/svg" href="{% static 'icon.svg' %}"/>
   </head>
   <body>
     <nav class="navbar navbar-dark ">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'dashboard'%}"><i class="fas fa-lungs-virus fa-2x mt-1"></i>
-          <span class="navbar-text" >Coronavirus Sentiment Analysis</span>
-          <a class="nav-link navbar-text justify-content-middle" href="{% url 'map'%}">Map</a>
+        <a class="navbar-brand" href="{% url 'dashboard'%}">
+          <img style="max-height: 60px;" src= "{% static 'logo.png' %}"></img>
         </a>
           <span class="navbar-text justify-content-end mr-3" >Applied Data Science: Group III</span>
       </div>

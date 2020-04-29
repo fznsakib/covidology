@@ -14,51 +14,7 @@ from dashboard.models import Tweet
 from django.http import JsonResponse
 
 
-def dashboard(request):
-
-    x_data = [0, 1, 2, 3, 4, 5, 6]
-    y_data = [x ** 2 for x in x_data]
-    # plot0_div = plot(
-    #     [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-    #     output_type="div",
-    # )
-    plot0_div = graph.city_sentiment()
-    plot1_div = plot(
-        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-        output_type="div",
-    )
-    plot2_div = plot(
-        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-        output_type="div",
-    )
-    plot3_div = plot(
-        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-        output_type="div",
-    )
-    global_cases = data.get_global()
-    top10 = data.get_top10()
-    top10_countries, top10_cases = zip(*top10)
-
-    return render(
-        request,
-        "dashboard.html",
-        context={
-            "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div],
-            "country_metrics": [i for i in top10_countries],
-            "cases_metrics": [j for j in top10_cases],
-        },
-    )
-
-
-# global_cases = data.get_global()
-# top10 = data.get_top10()
-# def scrollbar(request):
-#     scrolldata = json.dumps(top10)
-#     context={'metrics': top10}
-#     return render(request, 'dashboard.html',context)
-
-
-def map(request):
+def prep_map():
     df = pd.read_csv(data.urls["confirmed"])
     df_deaths = pd.read_csv(data.urls["deaths"])
     df.drop(
@@ -105,6 +61,45 @@ def map(request):
         # ),
         # paper_bgcolor="#75DEAA",
     )
-    figure = plot(fig, output_type="div")
+    output = plot(fig, output_type="div")
+    return output
 
-    return render(request, "map.html", context={"map_div": figure})
+
+def dashboard(request):
+
+    plot4_div = prep_map()
+
+
+    x_data = [0, 1, 2, 3, 4, 5, 6]
+    y_data = [x ** 2 for x in x_data]
+    # plot0_div = plot(
+    #     [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
+    #     output_type="div",
+    # )
+    plot0_div = graph.city_sentiment()
+
+    plot1_div = plot(
+        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
+        output_type="div",
+    )
+    plot2_div = plot(
+        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
+        output_type="div",
+    )
+    plot3_div = plot(
+        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
+        output_type="div",
+    )
+    global_cases = data.get_global()
+    top10 = data.get_top10()
+    top10_countries, top10_cases = zip(*top10)
+
+    return render(
+        request,
+        "dashboard.html",
+        context={
+            "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div,plot4_div],
+            "country_metrics": [i for i in top10_countries],
+            "cases_metrics": [j for j in top10_cases],
+        },
+    )
