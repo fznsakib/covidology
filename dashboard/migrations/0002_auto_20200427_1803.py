@@ -7,28 +7,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dashboard', '0001_initial'),
+        ("dashboard", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('article_id', models.TextField()),
-                ('date', models.DateField(default=datetime.date.today, verbose_name='Date')),
-                ('section', models.CharField(max_length=100)),
-                ('headline', models.TextField()),
-                ('url', models.TextField()),
-                ('article', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("article_id", models.TextField()),
+                ("date", models.DateField(default=datetime.date.today, verbose_name="Date")),
+                ("section", models.CharField(max_length=100)),
+                ("headline", models.TextField()),
+                ("url", models.TextField()),
+                ("article", models.TextField()),
             ],
-            options={
-                'ordering': ('date',),
-            },
+            options={"ordering": ("date",),},
         ),
-        migrations.AlterField(
-            model_name='tweet',
-            name='tweet',
-            field=models.TextField(),
-        ),
+        migrations.AlterField(model_name="tweet", name="tweet", field=models.TextField(),),
     ]

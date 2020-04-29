@@ -17,12 +17,13 @@ class Tweet(models.Model):
     output = models.CharField(max_length=10)
     positive = models.DecimalField(max_digits=10, decimal_places=5)
     negative = models.DecimalField(max_digits=10, decimal_places=5)
-    
+
     class Meta:
-        ordering = ('date',)
-    
+        ordering = ("date",)
+
     def __unicode__(self):
         return self.first
+
 
 class Article(models.Model):
     article_id = models.TextField()
@@ -31,12 +32,13 @@ class Article(models.Model):
     headline = models.TextField()
     url = models.TextField()
     article = models.TextField()
-    
+
     class Meta:
-        ordering = ('date',)
-    
+        ordering = ("date",)
+
     def __unicode__(self):
         return self.first
+
 
 class FTSE(models.Model):
     date = models.DateField(("Date"), default=date.today)
@@ -45,10 +47,9 @@ class FTSE(models.Model):
     low = models.FloatField()
     high = models.FloatField()
     volume = models.CharField(max_length=100)
-    
+
     class Meta:
-        ordering = ('date',)
-    
+        ordering = ("date",)
+
     def __unicode__(self):
         return self.first
-    

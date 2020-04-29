@@ -25,7 +25,13 @@ SECRET_KEY = "80lx@jgg0(=z2u4kcnqhhk(3$#@!s324k7_lqf5jvzodsgadb_"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['covidology.herokuapp.com', 'covidology.uk', 'www.covidology.uk','localhost','127.0.0.1']
+ALLOWED_HOSTS = [
+    "covidology.herokuapp.com",
+    "covidology.uk",
+    "www.covidology.uk",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -38,11 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
-    "dashboard"
+    "dashboard",
 ]
 
 MIDDLEWARE = [
-
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -112,6 +117,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

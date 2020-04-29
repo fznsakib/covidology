@@ -1,22 +1,24 @@
-import sys,os
+import sys, os
 import django
 import csv
 import pandas as pd
 
 ############ All you need to modify is below ############
 # Full path and name to your csv file
-csv_filepathname="/Users/faizaan/Documents/University/2019-2020/Applied Data Science/COVID-19-sentiment-analysis/data/news.csv"
+csv_filepathname = "/Users/faizaan/Documents/University/2019-2020/Applied Data Science/COVID-19-sentiment-analysis/data/news.csv"
 # Full path to the directory immediately above your django project directory
-your_djangoproject_home="/Users/faizaan/Documents/University/2019-2020/Applied Data Science/COVID-19-sentiment-analysis"
+your_djangoproject_home = (
+    "/Users/faizaan/Documents/University/2019-2020/Applied Data Science/COVID-19-sentiment-analysis"
+)
 ############ All you need to modify is above ############
 
 sys.path.append(your_djangoproject_home)
-os.environ['DJANGO_SETTINGS_MODULE'] ='app.settings'
+os.environ["DJANGO_SETTINGS_MODULE"] = "app.settings"
 
 django.setup()
 from dashboard.models import Article
 
-dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')
+dataReader = csv.reader(open(csv_filepathname), delimiter=",", quotechar='"')
 
 for i, row in enumerate(dataReader):
     if i == 0:
@@ -39,7 +41,7 @@ for i, row in enumerate(dataReader):
     # ftse.volume = row[5]
     # ftse.save()
     # tweet.tweet_id=row[0]
-    # tweet.date=row[1] 
+    # tweet.date=row[1]
     # tweet.time=row[2]
     # tweet.username=row[4]
     # tweet.tweet=row[7]
@@ -54,20 +56,20 @@ for i, row in enumerate(dataReader):
     # tweet.negative=row[26]
 
     # tweet.save()
-    
+
 # p = Tweet(tweet_id=row['id'], date=row['date'], time=row['time'], username=row['username'], tweet=row['tweet'], city=row['near'], replied_count=row['replies_count'], retweets_count['retweets_count'], likes_count=row['likes_count'], popular=row['popular'], verified=row['verified'], output=row['w2v_out'], positive=row['w2v_P_conf'], negative=row['w2v_N_conf'])
 
-    # tweet.tweet_id=row['id']
-    # tweet.date=row['date'] 
-    # tweet.time=row['time']
-    # tweet.username=row['username']
-    # tweet.tweet=row['tweet']
-    # tweet.city=row['near']
-    # tweet.replies_count=row['replies_count']
-    # tweet.retweets_count['retweets_count']
-    # tweet.likes_count=row['likes_count']
-    # tweet.popular=row['popular']
-    # tweet.verified=row['verified']
-    # tweet.output=row['output']
-    # tweet.positive=row['positive']
-    # tweet.negative=row['negative']
+# tweet.tweet_id=row['id']
+# tweet.date=row['date']
+# tweet.time=row['time']
+# tweet.username=row['username']
+# tweet.tweet=row['tweet']
+# tweet.city=row['near']
+# tweet.replies_count=row['replies_count']
+# tweet.retweets_count['retweets_count']
+# tweet.likes_count=row['likes_count']
+# tweet.popular=row['popular']
+# tweet.verified=row['verified']
+# tweet.output=row['output']
+# tweet.positive=row['positive']
+# tweet.negative=row['negative']
