@@ -24,7 +24,7 @@ def dashboard(request):
     #     [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
     #     output_type="div",
     # )
-    plot0_div = graph.city_sentiment()
+    plot0_div = graph.num_tweets()
 
     plot1_div = plot(
         [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
@@ -46,7 +46,7 @@ def dashboard(request):
         request,
         "dashboard.html",
         context={
-            "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div,plot4_div],
+            "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div, plot4_div],
             "country_metrics": [i for i in top10_countries],
             "cases_metrics": [j for j in top10_cases],
         },
