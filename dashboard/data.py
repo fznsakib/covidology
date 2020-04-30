@@ -10,6 +10,12 @@ urls = {
     "deaths": "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv",
 }
 
+# Get time range in dates
+dates = pd.date_range(start="2019-12-25", end="2020-03-25").tolist()
+for i, date in enumerate(dates):
+    dates[i] = date.strftime("%Y-%m-%d")
+    dates[i] = datetime.strptime(dates[i], "%Y-%m-%d").date()
+
 
 def get_global():
     cases = []
@@ -69,18 +75,29 @@ def get_map_data():
     df["Location"] = df["Province/State"]
     df["Location"] = df["Location"].combine(df["Country/Region"], join_province_and_country)
     df["Deaths"] = df_deaths[df_deaths.columns[-1]]
-    
+
     return df
+
+
+def get_num_tweets():
+    num_tweets = {"negative": [], "positive": [], "neutral": []}
+
+    for date in dates:
+        tweets_on_date = Tweet.objects.filter(date=date)
+
+        negative_tweets = tweets_on_date.filter(output="N")
+        positive_tweets = tweets_on_date.filter(output="P")
+        neutral_tweets = tweets_on_date.filter(output="Neutral")
+
+        num_tweets["negative"].append(len(negative_tweets))
+        num_tweets["positive"].append(len(positive_tweets))
+        num_tweets["neutral"].append(len(neutral_tweets))
+
+    return num_tweets, dates
 
 
 # Calculate proportion of negative tweets per day for every city
 def compute_sentiment_proportions():
-
-    # Get time range in dates
-    dates = pd.date_range(start="2019-12-25", end="2020-03-25").tolist()
-    for i, date in enumerate(dates):
-        dates[i] = date.strftime("%Y-%m-%d")
-        dates[i] = datetime.strptime(dates[i], "%Y-%m-%d").date()
 
     sentiment_dict = {
         "London": [],
@@ -112,8 +129,8 @@ def compute_sentiment_proportions():
             positive_tweets = filtered_dates.filter(output="P")
             neutral_tweets = filtered_dates.filter(output="Neutral")
             negative_tweets = filtered_dates.filter(output="N")
-            total_num_tweets = len(positive_tweets) +  len(neutral_tweets) + len(negative_tweets)
-            
+            total_num_tweets = len(positive_tweets) + len(neutral_tweets) + len(negative_tweets)
+
             # value for when no tweets exist for this date/city
             if total_num_tweets == 0:
                 # A value of 0 is used to show there are no tweets
