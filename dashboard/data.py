@@ -53,7 +53,28 @@ def get_top10():
     return top10
 
 
-def compute_sentiment_ratio():
+def get_map_data():
+    df = pd.read_csv(urls["confirmed"])
+    df_deaths = pd.read_csv(urls["deaths"])
+    df.drop(
+        df.loc[df["Country/Region"] == "Diamond Princess"].index, inplace=True
+    )  # Negative value for some reason
+    df.drop(df.loc[df["Province/State"] == "Diamond Princess"].index, inplace=True)
+    df.drop(df.loc[df["Province/State"] == "Grand Princess"].index, inplace=True)
+
+    latest_date = df.columns[-1]
+    df = df.rename(columns={latest_date: "Confirmed cases"})
+    # Add column and concatenate name is province is given
+    join_province_and_country = lambda x, y: y if pd.isnull(x) else x + ", " + y
+    df["Location"] = df["Province/State"]
+    df["Location"] = df["Location"].combine(df["Country/Region"], join_province_and_country)
+    df["Deaths"] = df_deaths[df_deaths.columns[-1]]
+    
+    return df
+
+
+# Calculate proportion of negative tweets per day for every city
+def compute_sentiment_proportions():
 
     # Get time range in dates
     dates = pd.date_range(start="2019-12-25", end="2020-03-25").tolist()
@@ -87,33 +108,26 @@ def compute_sentiment_ratio():
             else:
                 filtered_dates = tweets_on_date
 
-            # value for when no tweets exist for this date/city
-            if len(filtered_dates) == 0:
-                # A value of -1 is used to show there are no tweets
-                sentiment_dict[city].append(-1)
-                continue
-
             # get positive/negative tweets for date/city
             positive_tweets = filtered_dates.filter(output="P")
+            neutral_tweets = filtered_dates.filter(output="Neutral")
             negative_tweets = filtered_dates.filter(output="N")
-
-            # compute log ratio of num positive tweets/num negative tweets
-            if len(negative_tweets) == 0:
+            total_num_tweets = len(positive_tweets) +  len(neutral_tweets) + len(negative_tweets)
+            
+            # value for when no tweets exist for this date/city
+            if total_num_tweets == 0:
+                # A value of 0 is used to show there are no tweets
                 sentiment_dict[city].append(0)
                 continue
-            elif len(positive_tweets) == 0:
-                ratio = len(negative_tweets)
-            else:
-                ratio = len(negative_tweets) / len(positive_tweets)
 
-            log_ratio = math.log(ratio)
+            sentiment_proportion = len(neutral_tweets) / total_num_tweets
 
-            sentiment_dict[city].append(log_ratio)
+            sentiment_dict[city].append(sentiment_proportion)
 
     sentiment_dict["Date"] = dates
 
     # Export to CSV for quicker access
-    with open("sentiment_ratios.csv", "w") as csvfile:
+    with open("neutral_proportions.csv", "w") as csvfile:
         fieldnames = sentiment_dict.keys()
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
