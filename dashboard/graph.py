@@ -255,3 +255,9 @@ def num_tweets():
     output = plot(dict(data=traces, layout=layout), output_type="div")
 
     return output
+
+
+def most_common_words():
+    words = data.get_most_common_words()
+
+    # print(words)

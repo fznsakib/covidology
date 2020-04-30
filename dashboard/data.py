@@ -2,7 +2,11 @@ import csv
 import math
 import pandas as pd
 from datetime import datetime
+from collections import Counter
+from nltk.corpus import stopwords
+import nltk
 from dashboard.models import Tweet
+
 
 urls = {
     "confirmed": "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",
@@ -94,6 +98,34 @@ def get_num_tweets():
         num_tweets["neutral"].append(len(neutral_tweets))
 
     return num_tweets, dates
+
+
+def get_most_common_words():
+
+    words = []
+
+    tweets = Tweet.objects.all()
+
+    s = stopwords.words('english')
+    extra_stopwords = ['…', 'I', '.', ',', '!', '?', ':', '-', '&', '...', "'", '"', '``', "''"]
+    s.extend(extra_stopwords)
+    s = set(s)
+    
+    for tweet in tweets:
+        text = filter(lambda w: not w in s, tweet.cleaned_tweet.split())
+        
+        for word in text:
+            words.append(word)
+
+    word_counter = Counter(words)
+    most_occur = word_counter.most_common(500)
+    
+    count = words.count('marathon')
+    
+    print(most_occur)
+    print(count)
+
+    return most_occur
 
 
 # Calculate proportion of negative tweets per day for every city
