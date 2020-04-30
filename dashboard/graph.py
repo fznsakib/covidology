@@ -1,13 +1,15 @@
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import dashboard.data as data
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
-import plotly.graph_objects as go
 from dashboard.models import Tweet
 
 
 def city_sentiment():
 
-    df = pd.read_csv("data/sentiment_ratios.csv")
+    df = pd.read_csv("data/negative_proportions.csv")
     df = df.set_index("Date")
 
     data = [go.Scatter(x=df.index, y=df[city], name=city) for city in df.columns]
@@ -37,67 +39,92 @@ def city_sentiment():
             tick0="2019-01-25"
         ),
         yaxis=dict(title="Sentiment Log Ratio", ticks=""),
-        annotations=[
-            # dict(
-            #     x="2020-02-20",
-            #     y=10,
-            #     xref="x",
-            #     yref="y",
-            #     text="1st UK case",
-            #     showarrow=True,
-            #     arrowhead=7,
-            #     ax=0,
-            #     ay=-40,
-            # ),
-            dict(
-                x="2020-01-23",
-                y=2.5,
-                xref="x",
-                yref="y",
-                text="1st UK Case",
-                showarrow=True,
-                font=dict(size=12, color="#ffffff"),
-                align="center",
-                arrowhead=6,
-                arrowsize=1,
-                arrowwidth=1,
-                arrowcolor="#636363",
-                ax=0,
-                # ay=-30,
-                ay=-100,
-                bordercolor="#c7c7c7",
-                borderwidth=2,
-                borderpad=4,
-                bgcolor="steelblue",
-                opacity=0.8,
-            ),
-            dict(
-                x="2020-02-28",
-                y=5.5,
-                xref="x",
-                yref="y",
-                text="1st UK Death",
-                showarrow=True,
-                font=dict(size=12, color="#ffffff"),
-                align="center",
-                arrowhead=6,
-                arrowsize=1,
-                arrowwidth=1,
-                arrowcolor="#636363",
-                ax=0,
-                # ay=-30,
-                ay=-40,
-                bordercolor="#c7c7c7",
-                borderwidth=1,
-                borderpad=4,
-                bgcolor="#ff7f0e",
-                opacity=0.8,
-            ),
-        ],
+        # annotations=[
+        #     dict(
+        #         x="2020-01-23",
+        #         y=2.5,
+        #         xref="x",
+        #         yref="y",
+        #         text="1st UK Case",
+        #         showarrow=True,
+        #         font=dict(size=12, color="#ffffff"),
+        #         align="center",
+        #         arrowhead=6,
+        #         arrowsize=1,
+        #         arrowwidth=1,
+        #         arrowcolor="#636363",
+        #         ax=0,
+        #         # ay=-30,
+        #         ay=-100,
+        #         bordercolor="#c7c7c7",
+        #         borderwidth=2,
+        #         borderpad=4,
+        #         bgcolor="steelblue",
+        #         opacity=0.8,
+        #     ),
+        #     dict(
+        #         x="2020-02-28",
+        #         y=5.5,
+        #         xref="x",
+        #         yref="y",
+        #         text="1st UK Death",
+        #         showarrow=True,
+        #         font=dict(size=12, color="#ffffff"),
+        #         align="center",
+        #         arrowhead=6,
+        #         arrowsize=1,
+        #         arrowwidth=1,
+        #         arrowcolor="#636363",
+        #         ax=0,
+        #         # ay=-30,
+        #         ay=-40,
+        #         bordercolor="#c7c7c7",
+        #         borderwidth=1,
+        #         borderpad=4,
+        #         bgcolor="#ff7f0e",
+        #         opacity=0.8,
+        #     ),
+        # ],
         # height=400,
         # width=600,
     )
     # config={'responsive': True}
     output = plot(dict(data=data, layout=layout), output_type="div")
 
+    return output
+
+def map():
+    df = data.get_map_data()
+    list_of_hover_data = ["Confirmed cases", "Deaths"]
+    fig = px.scatter_mapbox(
+        df,
+        lat="Lat",
+        lon="Long",
+        color="Confirmed cases",
+        size="Confirmed cases",
+        color_continuous_scale=px.colors.sequential.Peach,
+        size_max=50,
+        zoom=2,
+        hover_name="Location",
+        hover_data=list_of_hover_data,
+        mapbox_style="carto-darkmatter",
+        # title="Confirmed COVID-19 Cases as of "
+        # + latest_date
+        # + " (source:https://github.com/CSSEGISandData/COVID-19)",
+    )
+
+    fig.update_layout(
+        autosize=True,
+        # width=500,
+        height=800,
+        # margin=dict(
+        #     l=50,
+        #     r=50,
+        #     b=100,
+        #     t=100,
+        #     pad=4
+        # ),
+        # paper_bgcolor="#75DEAA",
+    )
+    output = plot(fig, output_type="div")
     return output
