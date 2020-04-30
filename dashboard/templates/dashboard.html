@@ -108,22 +108,23 @@
 <!-- Segregating Jumbotron with space in the middle: lg-4; gunmetal col -->
 
 <section id="map">
-  <div class="row justify-content-center">
-    <div class="jumbotron col-lg-8 ml-5 mt-5 boxed-font">
-      <h1 class="display-4 map-text">John Hopkins Map Data</h1>
-      <p class="lead map-text">This is the John Hopkins Bubble Map data that shows the number of confirmed cases as well as deaths
-      in a particular country across the world. </p>
+  <div class="row justify-content-center mb-5 ml-5 mr-5">
+    <div class="jumbotron jumbotron-fluid col-lg-12 mt-4 ml-4 mr-4 boxed-font">
+      <h1 class="display-4 map-text">Worldwide COVID-19 Tracker</h1>
+      <!-- <p class="lead map-text">Confirmed COVID-19 Cases as of  </p> -->
       <hr class="my-4 in-box-line">
-      {% autoescape off %}
-          {{ plot_div.4 }}
-      {% endautoescape %}
+        <div class="container col-lg-8 inline-block">
+          {% autoescape off %}
+              {{ plot_div.4 }}
+          {% endautoescape %}
+        </div>
     </div>
   </div>
 
 </section>
 
 <section id="data-section-A">
-  <div class="row">
+  <div class="row ml-0">
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
     <h1 class="display-4">Sentiment Log Ratio between Positive and Negative Tweets</h1>
       <p class="lead">The following is a time-series graph illustrating the contrast between positive and negative tweets
@@ -138,7 +139,7 @@
 </section>
 
 <section id="data-section-B">
-  <div class="row justify-content-end">
+  <div class="row justify-content-end mr-0">
     <div class="jumbotron col-lg-5 mr-5 boxed-font">
     <h1 class="display-4">Hello, world!</h1>
     <p class="lead">This is the second data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -152,7 +153,7 @@
 </section>
 
 <section id="data-section-C">
-  <div class="row">
+  <div class="row ml-0">
     <div class="jumbotron col-lg-5 ml-5 boxed-font">
     <h1 class="display-4">Hello, world!</h1>
     <p class="lead">This is the third data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -166,7 +167,7 @@
 </section>
 
 <section id="data-section-D">
-  <div class="row justify-content-end">
+  <div class="row justify-content-end mr-0">
     <div class="jumbotron col-lg-5 mr-5 mb-5 boxed-font">
     <h1 class="display-4">Hello, world!</h1>
     <p class="lead">This is the final data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>

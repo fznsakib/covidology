@@ -1,5 +1,16 @@
+.covidology-logo{
+  height: 65px;
+  width: 220px;
+  padding-left: 25px
+}
+
+
 .jumbotron{
   background-color: #2d3142;
+}
+
+.jumbotron-fluid{
+  border-radius: 6px;
 }
 
 .counter{

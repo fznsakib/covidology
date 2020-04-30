@@ -43,9 +43,9 @@ def prep_map():
         hover_name="Location",
         hover_data=list_of_hover_data,
         mapbox_style="carto-darkmatter",
-        title="Confirmed COVID-19 Cases as of "
-        + latest_date
-        + " (source:https://github.com/CSSEGISandData/COVID-19)",
+        # title="Confirmed COVID-19 Cases as of "
+        # + latest_date
+        # + " (source:https://github.com/CSSEGISandData/COVID-19)",
     )
 
     fig.update_layout(
