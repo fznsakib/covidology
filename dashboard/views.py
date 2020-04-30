@@ -26,10 +26,8 @@ def dashboard(request):
     # )
     plot0_div = graph.num_tweets()
 
-    plot1_div = plot(
-        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-        output_type="div",
-    )
+    plot1_div = graph.most_common_words()
+
     plot2_div = plot(
         [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
         output_type="div",

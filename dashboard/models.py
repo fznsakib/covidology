@@ -8,6 +8,7 @@ class Tweet(models.Model):
     time = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     tweet = models.TextField()
+    cleaned_tweet = models.TextField(default="")
     city = models.CharField(max_length=100)
     replies_count = models.IntegerField()
     retweets_count = models.IntegerField()
