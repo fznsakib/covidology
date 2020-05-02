@@ -39,54 +39,6 @@ def city_sentiment():
             tick0="2019-01-25",
         ),
         yaxis=dict(title="Sentiment Log Ratio", ticks=""),
-        # annotations=[
-        #     dict(
-        #         x="2020-01-23",
-        #         y=2.5,
-        #         xref="x",
-        #         yref="y",
-        #         text="1st UK Case",
-        #         showarrow=True,
-        #         font=dict(size=12, color="#ffffff"),
-        #         align="center",
-        #         arrowhead=6,
-        #         arrowsize=1,
-        #         arrowwidth=1,
-        #         arrowcolor="#636363",
-        #         ax=0,
-        #         # ay=-30,
-        #         ay=-100,
-        #         bordercolor="#c7c7c7",
-        #         borderwidth=2,
-        #         borderpad=4,
-        #         bgcolor="steelblue",
-        #         opacity=0.8,
-        #     ),
-        #     dict(
-        #         x="2020-02-28",
-        #         y=5.5,
-        #         xref="x",
-        #         yref="y",
-        #         text="1st UK Death",
-        #         showarrow=True,
-        #         font=dict(size=12, color="#ffffff"),
-        #         align="center",
-        #         arrowhead=6,
-        #         arrowsize=1,
-        #         arrowwidth=1,
-        #         arrowcolor="#636363",
-        #         ax=0,
-        #         # ay=-30,
-        #         ay=-40,
-        #         bordercolor="#c7c7c7",
-        #         borderwidth=1,
-        #         borderpad=4,
-        #         bgcolor="#ff7f0e",
-        #         opacity=0.8,
-        #     ),
-        # ],
-        # height=400,
-        # width=600,
     )
     # config={'responsive': True}
     output = plot(dict(data=traces, layout=layout), output_type="div")
@@ -258,6 +210,28 @@ def num_tweets():
 
 
 def most_common_words():
-    words = data.get_most_common_words()
+    
+    df = pd.read_csv("data/top_words.csv")
+    
+    df = df[df.Word != 'coronavirus']
+    df = df[df.Word != 'COVID-19']
+    
+    df = df.sort_values("Count")
+    df = df.tail(10)
+    
+    traces = [go.Bar(
+            x=df['Count'],
+            y=df['Word'],
+            orientation='h')]
 
-    # print(words)
+    layout = go.Layout(
+        xaxis=dict(
+            title="Frequency",
+        ),
+        yaxis=dict(title="Word", ticks=""),
+    )
+    # config={'responsive': True}
+    output = plot(dict(data=traces, layout=layout), output_type="div")
+    
+    return output
+    

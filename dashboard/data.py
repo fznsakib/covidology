@@ -100,32 +100,64 @@ def get_num_tweets():
     return num_tweets, dates
 
 
-def get_most_common_words():
+def compute_most_common_words():
 
     words = []
 
     tweets = Tweet.objects.all()
 
+    # Define stop words
     s = stopwords.words('english')
-    extra_stopwords = ['…', 'I', '.', ',', '!', '?', ':', '-', '&', '...', "'", '"', '``', "''"]
+    extra_stopwords = ['…', 'I', '.', ',', '!', '?', ':', '-', '&', '...', "'", '"', '``', "''", "The", "like", "This", "A", "it's", "%"]
     s.extend(extra_stopwords)
     s = set(s)
     
+    # Filter tweets
     for tweet in tweets:
         text = filter(lambda w: not w in s, tweet.cleaned_tweet.split())
         
         for word in text:
             words.append(word)
 
+    # Get top n words used in tweets
     word_counter = Counter(words)
-    most_occur = word_counter.most_common(500)
+    most_occur = word_counter.most_common(2000)
     
-    count = words.count('marathon')
+    # Remove case sensitive duplicates of words
+    cleaned_most_occur = {}
     
-    print(most_occur)
-    print(count)
+    for i, entry in enumerate(most_occur):
 
-    return most_occur
+        word_found = False
+        
+        for j, key in enumerate(cleaned_most_occur.keys()):
+            if entry[0].lower() == key.lower():
+                cleaned_most_occur[key] += entry[1]
+                word_found = True
+                break
+        
+        if not word_found:
+            cleaned_most_occur[entry[0]] = entry[1]
+            
+    print(cleaned_most_occur)
+    print(len(cleaned_most_occur))
+    
+    # Export to CSV for quicker access
+    with open("data/top_words.csv", "w") as csvfile:
+        fieldnames = ["Word", "Count"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+
+        for i, word in enumerate(cleaned_most_occur.keys()):
+            writer.writerow(
+                {
+                    "Word": word,
+                    "Count": cleaned_most_occur[word]
+                }
+            )
+
+    return cleaned_most_occur
 
 
 # Calculate proportion of negative tweets per day for every city
