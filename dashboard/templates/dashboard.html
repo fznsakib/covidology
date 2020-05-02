@@ -111,13 +111,16 @@
   <div class="row justify-content-center mb-5 ml-5 mr-5">
     <div class="jumbotron jumbotron-fluid col-lg-12 mt-4 ml-4 mr-4 boxed-font">
       <h1 class="display-4 map-text">Worldwide COVID-19 Tracker</h1>
-      <!-- <p class="lead map-text">Confirmed COVID-19 Cases as of  </p> -->
+      <p class="lead map-text">Confirmed COVID-19 Cases as of {{ latest_date }}</p>
       <hr class="my-4 in-box-line">
-        <div class="container col-lg-8 inline-block">
-          {% autoescape off %}
-              {{ plot_div.4 }}
-          {% endautoescape %}
-        </div>
+      <div class="container col-lg-8 inline-block">
+        {% autoescape off %}
+        {{ plot_div.4 }}
+        {% endautoescape %}
+      </div>
+      <p class="lead map-text">
+        <a href="https://github.com/CSSEGISandData/COVID-19">Source</a>
+      </p>
     </div>
   </div>
 
@@ -126,9 +129,8 @@
 <section id="data-section-A">
   <div class="row ml-0">
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
-    <h1 class="display-4">Sentiment Log Ratio between Positive and Negative Tweets</h1>
-      <p class="lead">The following is a time-series graph illustrating the contrast between positive and negative tweets
-      about Coronavirus in the UK across a variety of cities.</p>
+    <h1 class="display-4">Number of tweets by sentiment over time</h1>
+      <p class="lead"></p>
     <hr class="my-4 in-box-line">
     {% autoescape off %}
         {{ plot_div.0 }}
@@ -141,8 +143,8 @@
 <section id="data-section-B">
   <div class="row justify-content-end mr-0">
     <div class="jumbotron col-lg-5 mr-5 boxed-font">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is the second data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <h1 class="display-4">Top 20 Most Used Words</h1>
+    <p class="lead">Common words, along with the search keywords 'Coronavirus' and 'COVID-19' are excluded.</p>
     <hr class="my-4 in-box-line">
     {% autoescape off %}
         {{ plot_div.1 }}

@@ -16,7 +16,7 @@ from django.http import JsonResponse
 
 def dashboard(request):
 
-    plot4_div = graph.map()
+    plot4_div, latest_date = graph.map()
 
     x_data = [0, 1, 2, 3, 4, 5, 6]
     y_data = [x ** 2 for x in x_data]
@@ -47,5 +47,6 @@ def dashboard(request):
             "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div, plot4_div],
             "country_metrics": [i for i in top10_countries],
             "cases_metrics": [j for j in top10_cases],
+            "latest_date": latest_date
         },
     )
