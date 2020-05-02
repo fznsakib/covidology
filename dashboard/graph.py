@@ -2,52 +2,16 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import dashboard.data as data
+import datetime
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
 from dashboard.models import Tweet
 
-
-def city_sentiment():
-
-    df = pd.read_csv("data/negative_proportions.csv")
-    df = df.set_index("Date")
-
-    traces = [go.Scatter(x=df.index, y=df[city], name=city) for city in df.columns]
-
-    layout = go.Layout(
-        # title='Win Probability Matrix',
-        xaxis=dict(
-            title="Date",
-            ticks="",
-            rangeslider_visible=True,
-            rangeselector=dict(
-                buttons=list(
-                    [
-                        dict(count=7, label="1w", step="day", stepmode="backward"),
-                        dict(count=1, label="1m", step="month", stepmode="backward"),
-                        dict(count=3, label="3m", step="month", stepmode="backward")
-                        # dict(step="all"),
-                    ]
-                ),
-                x=0.82,
-                activecolor="powderblue",
-                bordercolor="powderblue",
-                borderwidth=1
-                # yanchor="middle"
-            ),
-            type="date",
-            tick0="2019-01-25",
-        ),
-        yaxis=dict(title="Sentiment Log Ratio", ticks=""),
-    )
-    # config={'responsive': True}
-    output = plot(dict(data=traces, layout=layout), output_type="div")
-
-    return output
+config = {"displaylogo": False, "scrollZoom": True, 'responsive': True}
 
 
 def map():
-    df = data.get_map_data()
+    df, latest_date = data.get_map_data()
     list_of_hover_data = ["Confirmed cases", "Deaths"]
     fig = px.scatter_mapbox(
         df,
@@ -61,26 +25,23 @@ def map():
         hover_name="Location",
         hover_data=list_of_hover_data,
         mapbox_style="carto-darkmatter",
-        # title="Confirmed COVID-19 Cases as of "
-        # + latest_date
-        # + " (source:https://github.com/CSSEGISandData/COVID-19)",
     )
 
     fig.update_layout(
         autosize=True,
-        # width=500,
-        height=800,
-        # margin=dict(
-        #     l=50,
-        #     r=50,
-        #     b=100,
-        #     t=100,
-        #     pad=4
-        # ),
-        # paper_bgcolor="#75DEAA",
+        width=1500,
+        height=600,
+        margin=dict(l=10, r=700, b=10, t=10, pad=4),
+        template="plotly_dark",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Raleway", color="#FFFFFF"),
     )
     output = plot(fig, output_type="div")
-    return output
+    
+    # Convert date format and return to display on page
+    latest_date = datetime.datetime.strptime(latest_date, '%m/%d/%y').strftime('%d/%m/%y')
+    
+    return output, latest_date
 
 
 def num_tweets():
@@ -109,16 +70,20 @@ def num_tweets():
                         # dict(step="all"),
                     ]
                 ),
-                x=0.7,
+                x=0.75,
+                y=1.08,
                 activecolor="powderblue",
                 bordercolor="powderblue",
-                borderwidth=1
-                # yanchor="middle"
+                font=dict(
+                    color="#000000"
+                ),
+                borderwidth=1,
             ),
             type="date",
             tick0="2019-01-25",
+            gridcolor="#FFFFFF",
         ),
-        yaxis=dict(title="Number of Tweets", ticks=""),
+        yaxis=dict(title="Number of Tweets", ticks="", gridcolor="#FFFFFF"),
         updatemenus=[
             dict(
                 buttons=list(
@@ -146,12 +111,10 @@ def num_tweets():
                     ]
                 ),
                 direction="down",
-                pad={"r": 10, "t": 10},
-                showactive=True,
-                x=0,
-                xanchor="left",
-                y=1.25,
-                yanchor="top",
+                # pad={"r": 10, "t": 10},
+                showactive=False,
+                x=0.23,
+                y=1.15,
             ),
         ],
         annotations=[
@@ -169,7 +132,6 @@ def num_tweets():
                 arrowwidth=1,
                 arrowcolor="#636363",
                 ax=0,
-                # ay=-30,
                 ay=-100,
                 bordercolor="#c7c7c7",
                 borderwidth=2,
@@ -191,7 +153,6 @@ def num_tweets():
                 arrowwidth=1,
                 arrowcolor="#636363",
                 ax=0,
-                # ay=-30,
                 ay=-120,
                 bordercolor="#c7c7c7",
                 borderwidth=1,
@@ -199,39 +160,44 @@ def num_tweets():
                 bgcolor="#ff7f0e",
                 opacity=0.8,
             ),
-        ]
-        # height=400,
-        # width=600,
+        ],
+        paper_bgcolor="rgba(0,0,0,0)",
+        template="plotly_dark",
+        plot_bgcolor="rgba(255,255,255,0.9)",
+        font=dict(family="Raleway", color="#FFFFFF"),
+        margin=dict(l=1, r=1, b=1, t=1, pad=0),
     )
 
-    output = plot(dict(data=traces, layout=layout), output_type="div")
+    output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
 
     return output
 
 
 def most_common_words():
-    
+
     df = pd.read_csv("data/top_words.csv")
-    
-    df = df[df.Word != 'coronavirus']
-    df = df[df.Word != 'COVID-19']
-    
+
+    df = df[df.Word != "coronavirus"]
+    df = df[df.Word != "COVID-19"]
+
     df = df.sort_values("Count")
-    df = df.tail(10)
-    
-    traces = [go.Bar(
-            x=df['Count'],
-            y=df['Word'],
-            orientation='h')]
+    df = df.tail(20)
+
+    traces = [go.Bar(x=df["Count"], y=df["Word"], orientation="h")]
 
     layout = go.Layout(
-        xaxis=dict(
-            title="Frequency",
+        xaxis=dict(title="Frequency", gridcolor="#FFFFFF"),
+        yaxis=dict(title="Word", ticks="", gridcolor="#FFFFFF"),
+        paper_bgcolor="rgba(0,0,0,0)",
+        template="plotly_dark",
+        font=dict(
+            family="Raleway",
+            color="#FFFFFF",
         ),
-        yaxis=dict(title="Word", ticks=""),
+        plot_bgcolor="rgba(255,255,255,0.9)",
+        margin=dict(l=1, r=1, b=1, t=1, pad=0),
     )
-    # config={'responsive': True}
-    output = plot(dict(data=traces, layout=layout), output_type="div")
-    
+
+    output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
+
     return output
-    
