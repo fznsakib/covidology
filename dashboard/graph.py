@@ -59,7 +59,6 @@ def num_tweets():
         # title='Win Probability Matrix',
         xaxis=dict(
             title="Date",
-            ticks="",
             rangeslider_visible=True,
             rangeselector=dict(
                 buttons=list(
@@ -76,11 +75,18 @@ def num_tweets():
                 bordercolor="powderblue",
                 font=dict(color="#000000"),
                 borderwidth=1,
-                yanchor='bottom'
+                yanchor="bottom",
             ),
             type="date",
             tick0="2019-01-25",
             gridcolor="#FFFFFF",
+            showgrid=True,
+            showline=True,
+            linecolor="rgb(102, 102, 102)",
+            tickfont_color="rgb(255, 255, 255)",
+            showticklabels=True,
+            ticks="outside",
+            tickcolor="rgb(255, 255, 255)",
         ),
         yaxis=dict(title="Number of Tweets", ticks="", gridcolor="#FFFFFF"),
         updatemenus=[
@@ -114,8 +120,8 @@ def num_tweets():
                 showactive=False,
                 x=1,
                 # y=1.15,
-                xanchor='right',
-                yanchor='bottom'
+                xanchor="right",
+                yanchor="bottom",
             ),
         ],
         annotations=[
@@ -166,9 +172,9 @@ def num_tweets():
         template="plotly_dark",
         plot_bgcolor="rgba(255,255,255,0.9)",
         font=dict(family="Raleway", color="#FFFFFF"),
-        margin=dict(l=1, r=1, b=1, t=1, pad=0),
+        margin=dict(l=1, r=1, b=1, t=75, pad=0),
         legend_orientation="h",
-        legend=dict(x=0.22, y=-0.9)
+        legend=dict(x=0.22, y=-0.9),
     )
 
     output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
@@ -189,7 +195,18 @@ def most_common_words():
     traces = [go.Bar(x=df["Count"], y=df["Word"], orientation="h")]
 
     layout = go.Layout(
-        xaxis=dict(title="Frequency", gridcolor="#FFFFFF"),
+        xaxis=dict(
+            title="Frequency",
+            gridcolor="#FFFFFF",
+            showgrid=True,
+            showline=True,
+            linecolor="rgb(102, 102, 102)",
+            tickfont_color="rgb(255, 255, 255)",
+            showticklabels=True,
+            dtick=200,
+            ticks="outside",
+            tickcolor="rgb(255, 255, 255)",
+        ),
         yaxis=dict(title="Word", ticks="", gridcolor="#FFFFFF"),
         paper_bgcolor="rgba(0,0,0,0)",
         template="plotly_dark",
@@ -202,37 +219,38 @@ def most_common_words():
 
     return output
 
+
 def sentiment_by_words():
-    
+
     df = pd.read_csv("data/sentiment_by_keyword.csv")
     df = df.sort_values("Count")
-    
+
     trace_positive = go.Scatter(
-        x=df['Positive'],
-        y=df['Word'],
+        x=df["Positive"],
+        y=df["Word"],
         marker=dict(color="mediumseagreen", size=12),
         mode="markers",
         name="Positive",
     )
-    
+
     trace_neutral = go.Scatter(
-        x=df['Neutral'],
-        y=df['Word'],
+        x=df["Neutral"],
+        y=df["Word"],
         marker=dict(color="orange", size=12),
         mode="markers",
         name="Neutral",
     )
-    
+
     trace_negative = go.Scatter(
-        x=df['Negative'],
-        y=df['Word'],
+        x=df["Negative"],
+        y=df["Word"],
         marker=dict(color="crimson", size=12),
         mode="markers",
         name="Negative",
     )
-    
+
     traces = [trace_positive, trace_neutral, trace_negative]
-    
+
     layout = go.Layout(
         # xaxis=dict(title="Sentiment Proportion (%)", gridcolor="#FFFFFF"),
         xaxis=dict(
@@ -240,12 +258,12 @@ def sentiment_by_words():
             gridcolor="#FFFFFF",
             showgrid=False,
             showline=True,
-            linecolor='rgb(102, 102, 102)',
-            tickfont_color='rgb(255, 255, 255)',
+            linecolor="rgb(102, 102, 102)",
+            tickfont_color="rgb(255, 255, 255)",
             showticklabels=True,
             dtick=10,
-            ticks='outside',
-            tickcolor='rgb(255, 255, 255)',
+            ticks="outside",
+            tickcolor="rgb(255, 255, 255)",
         ),
         yaxis=dict(title="Keyword", ticks="", gridcolor="#FFFFFF"),
         paper_bgcolor="rgba(0,0,0,0)",
@@ -254,9 +272,39 @@ def sentiment_by_words():
         plot_bgcolor="rgba(255,255,255,0.9)",
         margin=dict(l=1, r=1, b=1, t=1, pad=0),
         width=1000,
-        legend_orientation="h"
+        legend_orientation="h",
     )
-        
+
     output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
-    
+
     return output
+
+
+def cross_correlation():
+
+    df = pd.read_csv("data/negative_proportions.csv")
+
+    trace_tweets = go.Scatter(x=df["Date"], y=df["Total"], name=twitter_sentiment)
+
+    layout = go.Layout(
+        xaxis=dict(
+            title="Date",
+            gridcolor="#FFFFFF",
+            showgrid=False,
+            showline=True,
+            linecolor="rgb(102, 102, 102)",
+            tickfont_color="rgb(255, 255, 255)",
+            showticklabels=True,
+            dtick=10,
+            ticks="outside",
+            tickcolor="rgb(255, 255, 255)",
+        ),
+        yaxis=dict(title="Proportion (%)", ticks="", gridcolor="#FFFFFF"),
+        paper_bgcolor="rgba(0,0,0,0)",
+        template="plotly_dark",
+        font=dict(family="Raleway", color="#FFFFFF",),
+        plot_bgcolor="rgba(255,255,255,0.9)",
+        margin=dict(l=1, r=1, b=1, t=1, pad=0),
+        width=1000,
+        legend_orientation="h",
+    )

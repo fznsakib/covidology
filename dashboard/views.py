@@ -29,7 +29,7 @@ def dashboard(request):
     plot1_div = graph.most_common_words()
 
     plot2_div = graph.sentiment_by_words()
-    
+
     plot3_div = plot(
         [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
         output_type="div",

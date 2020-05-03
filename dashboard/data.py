@@ -250,24 +250,35 @@ def compute_sentiment_proportions():
 
 
 def compute_sentiment_proportions_by_word():
-    words = ['coronavirus', 'COVID-19', 'government', 'NHS', 'BBC', 'Boris', 'London', 'cancelled', 'lockdown', 'Trump']
-    
+    words = [
+        "coronavirus",
+        "COVID-19",
+        "government",
+        "NHS",
+        "BBC",
+        "Boris",
+        "London",
+        "cancelled",
+        "lockdown",
+        "Trump",
+    ]
+
     sentiment_dict = {}
-    
+
     for word in words:
         sentiment_dict[word] = []
-        
+
         tweets = Tweet.objects.filter(cleaned_tweet__icontains=word)
-        
+
         positive_tweets = tweets.filter(output="P")
         neutral_tweets = tweets.filter(output="Neutral")
         negative_tweets = tweets.filter(output="N")
         total_num_tweets = len(positive_tweets) + len(neutral_tweets) + len(negative_tweets)
-        
-        positive_proportion = (len(positive_tweets)/total_num_tweets) * 100
-        neutral_proportion = (len(neutral_tweets)/total_num_tweets) * 100
-        negative_proportion = (len(negative_tweets)/total_num_tweets) * 100
-        
+
+        positive_proportion = (len(positive_tweets) / total_num_tweets) * 100
+        neutral_proportion = (len(neutral_tweets) / total_num_tweets) * 100
+        negative_proportion = (len(negative_tweets) / total_num_tweets) * 100
+
         sentiment_dict[word].append(positive_proportion)
         sentiment_dict[word].append(neutral_proportion)
         sentiment_dict[word].append(negative_proportion)
@@ -275,7 +286,7 @@ def compute_sentiment_proportions_by_word():
 
     # Export to CSV for quicker access
     with open("data/sentiment_by_keyword.csv", "w") as csvfile:
-        fieldnames = ['Word', 'Positive', 'Neutral', 'Negative', 'Count']
+        fieldnames = ["Word", "Positive", "Neutral", "Negative", "Count"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -287,13 +298,6 @@ def compute_sentiment_proportions_by_word():
                     "Positive": sentiment_dict[word][0],
                     "Neutral": sentiment_dict[word][1],
                     "Negative": sentiment_dict[word][2],
-                    "Count": sentiment_dict[word][3]
+                    "Count": sentiment_dict[word][3],
                 }
             )
-        
-        
-        
-    
-    
-        
-    
