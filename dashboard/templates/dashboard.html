@@ -171,8 +171,13 @@
 <section id="data-section-D">
   <div class="row justify-content-end mr-0">
     <div class="jumbotron col-lg-5 mr-5 mb-5 boxed-font">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is the final data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <h1 class="display-4">Comparison of Negative Twitter Sentiment Related to COVID-19 with Secondary Sources</h1>
+    <p class="lead">
+      All variables are normalised to [0, 1] for comparison.<br>
+      Secondary sources include:
+      <li>FTSE100: Open price</li>
+      <li>UK News: No. of COVID-19 related news articles published by The Guardian</li>
+    </p>
     <hr class="my-4 in-box-line">
     {% autoescape off %}
         {{ plot_div.3 }}

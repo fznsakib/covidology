@@ -18,22 +18,14 @@ def dashboard(request):
 
     plot4_div, latest_date = graph.map()
 
-    x_data = [0, 1, 2, 3, 4, 5, 6]
-    y_data = [x ** 2 for x in x_data]
-    # plot0_div = plot(
-    #     [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-    #     output_type="div",
-    # )
     plot0_div = graph.num_tweets()
 
     plot1_div = graph.most_common_words()
 
     plot2_div = graph.sentiment_by_words()
 
-    plot3_div = plot(
-        [Scatter(x=x_data, y=y_data, mode="lines", name="test", opacity=0.8, marker_color="green")],
-        output_type="div",
-    )
+    plot3_div = graph.cross_correlation()
+
     global_cases = data.get_global()
     top10 = data.get_top10()
     top10_countries, top10_cases = zip(*top10)

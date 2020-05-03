@@ -282,9 +282,15 @@ def sentiment_by_words():
 
 def cross_correlation():
 
-    df = pd.read_csv("data/negative_proportions.csv")
+    df_tweets = pd.read_csv("data/negative_proportions.csv")
+    df_ftse = pd.read_csv("data/ftse.csv")
+    normalised_articles = data.compute_normalised_news_article_count()
 
-    trace_tweets = go.Scatter(x=df["Date"], y=df["Total"], name=twitter_sentiment)
+    trace_tweets = go.Scatter(x=df_tweets["Date"], y=df_tweets["Normalised"], name="No. of Negative Tweets")
+    trace_article = go.Scatter(x=df_tweets["Date"], y=normalised_articles, name="No. of News Articles")
+    trace_ftse = go.Scatter(x=df_ftse["Date"], y=df_ftse["Normalised Price"], name="FTSE Open Price")
+
+    traces = [trace_tweets, trace_article, trace_ftse]
 
     layout = go.Layout(
         xaxis=dict(
@@ -295,16 +301,21 @@ def cross_correlation():
             linecolor="rgb(102, 102, 102)",
             tickfont_color="rgb(255, 255, 255)",
             showticklabels=True,
-            dtick=10,
+            # dtick=10,
             ticks="outside",
             tickcolor="rgb(255, 255, 255)",
         ),
-        yaxis=dict(title="Proportion (%)", ticks="", gridcolor="#FFFFFF"),
+        yaxis=dict(title="Normalised Ratio", ticks="", gridcolor="#FFFFFF"),
         paper_bgcolor="rgba(0,0,0,0)",
         template="plotly_dark",
         font=dict(family="Raleway", color="#FFFFFF",),
         plot_bgcolor="rgba(255,255,255,0.9)",
         margin=dict(l=1, r=1, b=1, t=1, pad=0),
-        width=1000,
+        # width=1000,
         legend_orientation="h",
+        legend=dict(orientation='h',yanchor='bottom',xanchor='center',y=-0.35,x=0.5)
     )
+
+    output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
+
+    return output
