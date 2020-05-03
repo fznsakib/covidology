@@ -16,6 +16,7 @@ from django.http import JsonResponse
 
 def dashboard(request):
 
+    plot5_div = graph.city_sentiment_map()
     plot4_div, latest_date = graph.map()
 
     plot0_div = graph.num_tweets()
@@ -34,7 +35,7 @@ def dashboard(request):
         request,
         "dashboard.html",
         context={
-            "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div, plot4_div],
+            "plot_div": [plot0_div, plot1_div, plot2_div, plot3_div, plot4_div, plot5_div],
             "country_metrics": [i for i in top10_countries],
             "cases_metrics": [j for j in top10_cases],
             "latest_date": latest_date,

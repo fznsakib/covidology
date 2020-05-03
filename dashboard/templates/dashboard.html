@@ -126,6 +126,22 @@
 
 </section>
 
+<section id="sentiment_heat_map">
+  <div class="row justify-content-center mb-5 ml-5 mr-5">
+    <div class="jumbotron jumbotron-fluid col-lg-12 mt-4 ml-4 mr-4 boxed-font">
+      <h1 class="display-4 map-text">Sentiment Heat Map</h1>
+      <!-- <p class="lead map-text">Confirmed COVID-19 Cases as of  </p> -->
+      <hr class="my-4 in-box-line">
+        <div class="container col-lg-8 inline-block">
+          {% autoescape off %}
+              {{ plot_div.5 }}
+          {% endautoescape %}
+        </div>
+    </div>
+  </div>
+
+</section>
+
 <section id="data-section-A">
   <div class="row ml-0">
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
