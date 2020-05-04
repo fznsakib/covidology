@@ -14,7 +14,7 @@ def city_sentiment_map():
     df = df.set_index("Date")
 
     list_of_cities = df.columns
-    list_of_cities = list_of_cities[:-1]
+    list_of_cities = list_of_cities[1:-1]
 
     #Store Lat and Long values
     lat = {}
@@ -54,13 +54,14 @@ def city_sentiment_map():
         )
 
     data = pd.concat(city_dataframe.values())
+    data['Size'] = 25
 
     fig = px.scatter_mapbox(
         data,
         lat="Lat",
         lon="Long",
         color="Proportion of negative tweets",
-        size="Proportion of negative tweets",
+        size="Size",
         color_continuous_scale=px.colors.diverging.Geyser,
         size_max=25,
         zoom=5,
@@ -72,8 +73,13 @@ def city_sentiment_map():
     )
 
     fig.update_layout(
-        height=800,
         autosize=True,
+        width=1500,
+        height=600,
+        margin=dict(l=10, r=700, b=10, t=10, pad=4),
+        template="plotly_dark",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Raleway", color="#FFFFFF"),
     )
 
     output = plot(fig, output_type="div")
@@ -352,7 +358,7 @@ def sentiment_by_words():
 def cross_correlation():
 
     data.compute_normalised_news_article_count()
-    
+
     df_tweets = pd.read_csv("data/num_tweets_by_sentiment.csv")
     df_ftse = pd.read_csv("data/ftse.csv")
     df_articles = pd.read_csv("data/news_normalised.csv")
