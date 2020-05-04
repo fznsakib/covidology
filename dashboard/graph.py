@@ -309,7 +309,7 @@ def cross_correlation():
             ticks="outside",
             tickcolor="rgb(255, 255, 255)",
         ),
-        yaxis=dict(title="Normalised Ratio", ticks="", gridcolor="#FFFFFF"),
+        yaxis=dict(title="Normalised Value", ticks="", gridcolor="#FFFFFF"),
         paper_bgcolor="rgba(0,0,0,0)",
         template="plotly_dark",
         font=dict(family="Raleway", color="#FFFFFF",),
