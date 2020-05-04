@@ -9,6 +9,81 @@ from dashboard.models import Tweet
 
 config = {"displaylogo": False, "scrollZoom": True, "responsive": True}
 
+def city_sentiment_map():
+    df = pd.read_csv("data/negative_proportions.csv")
+    df = df.set_index("Date")
+
+    list_of_cities = df.columns
+    list_of_cities = list_of_cities[1:-1]
+
+    #Store Lat and Long values
+    lat = {}
+
+    lat['London'] = 51.51
+    lat['Bristol'] = 51.45
+    lat['Manchester'] = 53.48
+    lat['Liverpool'] = 53.40
+    lat['Birmingham'] = 52.49
+    lat['Leeds'] = 53.80
+    lat['Oxford'] = 51.75
+    lat['Glasgow'] = 55.86
+    lat['Dublin'] = 53.35
+    lat['Cardiff'] = 51.48
+
+    long = {}
+
+    long['London'] = -0.12
+    long['Bristol'] = -2.59
+    long['Manchester'] = -2.24
+    long['Liverpool'] = -2.98
+    long['Birmingham'] = -1.90
+    long['Leeds'] = -1.55
+    long['Oxford'] = -1.26
+    long['Glasgow'] = -4.25
+    long['Dublin'] = -6.27
+    long['Cardiff'] = -3.18
+
+    city_dataframe = {}
+    for city in list_of_cities:
+        city_dataframe[city] = pd.DataFrame(
+            {'Date': df[city].index,
+             'Location':df[city].name,
+             'Proportion of negative tweets':df[city].values,
+             'Lat': lat[city],
+             'Long': long[city]}
+        )
+
+    data = pd.concat(city_dataframe.values())
+    data['Size'] = 25
+
+    fig = px.scatter_mapbox(
+        data,
+        lat="Lat",
+        lon="Long",
+        color="Proportion of negative tweets",
+        size="Size",
+        color_continuous_scale=px.colors.diverging.Geyser,
+        size_max=25,
+        zoom=5,
+        hover_name="Location",
+        mapbox_style="carto-darkmatter",
+        animation_frame="Date",
+        animation_group="Location",
+        range_color=[0.0,1.0]
+    )
+
+    fig.update_layout(
+        autosize=True,
+        width=1500,
+        height=600,
+        margin=dict(l=10, r=700, b=10, t=10, pad=4),
+        template="plotly_dark",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Raleway", color="#FFFFFF"),
+    )
+
+    output = plot(fig, output_type="div")
+    return output
 
 def map():
     df, latest_date = data.get_map_data()
@@ -283,7 +358,7 @@ def sentiment_by_words():
 def cross_correlation():
 
     data.compute_normalised_news_article_count()
-    
+
     df_tweets = pd.read_csv("data/num_tweets_by_sentiment.csv")
     df_ftse = pd.read_csv("data/ftse.csv")
     df_articles = pd.read_csv("data/news_normalised.csv")
