@@ -282,9 +282,19 @@ def sentiment_by_words():
 
 def cross_correlation():
 
-    df = pd.read_csv("data/negative_proportions.csv")
+    data.compute_normalised_news_article_count()
+    
+    df_tweets = pd.read_csv("data/num_tweets_by_sentiment.csv")
+    df_ftse = pd.read_csv("data/ftse.csv")
+    df_articles = pd.read_csv("data/news_normalised.csv")
+    df_cases = pd.read_csv("data/cases_normalised.csv")
 
-    trace_tweets = go.Scatter(x=df["Date"], y=df["Total"], name=twitter_sentiment)
+    trace_tweets = go.Scatter(x=df_tweets["Date"], y=df_tweets["Normalised Negative"], name="No. of Negative Tweets")
+    trace_ftse = go.Scatter(x=df_ftse["Date"], y=df_ftse["Normalised Price"], name="FTSE Open Price")
+    trace_article = go.Scatter(x=df_tweets["Date"], y=df_articles["Normalised Count"], name="No. of News Articles")
+    trace_cases = go.Scatter(x=df_cases["Date"], y=df_cases["Normalised"], name="No. of COVID-19 Cases", line=dict(color='slategray'))
+
+    traces = [trace_tweets, trace_article, trace_ftse, trace_cases]
 
     layout = go.Layout(
         xaxis=dict(
@@ -295,16 +305,21 @@ def cross_correlation():
             linecolor="rgb(102, 102, 102)",
             tickfont_color="rgb(255, 255, 255)",
             showticklabels=True,
-            dtick=10,
+            # dtick=10,
             ticks="outside",
             tickcolor="rgb(255, 255, 255)",
         ),
-        yaxis=dict(title="Proportion (%)", ticks="", gridcolor="#FFFFFF"),
+        yaxis=dict(title="Normalised Value", ticks="", gridcolor="#FFFFFF"),
         paper_bgcolor="rgba(0,0,0,0)",
         template="plotly_dark",
         font=dict(family="Raleway", color="#FFFFFF",),
         plot_bgcolor="rgba(255,255,255,0.9)",
         margin=dict(l=1, r=1, b=1, t=1, pad=0),
-        width=1000,
+        # width=1000,
         legend_orientation="h",
+        legend=dict(orientation='h',yanchor='bottom',xanchor='center',y=-0.35,x=0.5)
     )
+
+    output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
+
+    return output

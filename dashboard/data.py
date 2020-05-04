@@ -6,6 +6,7 @@ from collections import Counter
 from nltk.corpus import stopwords
 import nltk
 from dashboard.models import Tweet
+from dashboard.models import Article
 
 
 urls = {
@@ -160,9 +161,6 @@ def compute_most_common_words():
         if not word_found:
             cleaned_most_occur[entry[0]] = entry[1]
 
-    print(cleaned_most_occur)
-    print(len(cleaned_most_occur))
-
     # Export to CSV for quicker access
     with open("data/top_words.csv", "w") as csvfile:
         fieldnames = ["Word", "Count"]
@@ -301,3 +299,113 @@ def compute_sentiment_proportions_by_word():
                     "Count": sentiment_dict[word][3],
                 }
             )
+
+def compute_normalised_ftse():
+    df = pd.read_csv('data/ftse.csv')
+    
+    min_price = df['Open Price'].min()
+    max_price = df['Open Price'].max()
+    price_range = max_price - min_price
+    
+    normalised_prices = []
+    
+    for price in df['Open Price']:
+        normalised = 1 - ((price - min_price)/price_range)
+        normalised_prices.append(normalised)
+
+    df['Normalised Price'] = normalised_prices
+    
+    df.to_csv('data/new_ftse.csv')
+    
+    return
+
+def compute_normalised_negative_tweets():
+    
+    num_tweets_by_day = []
+
+    for date in dates:
+        tweets_on_day = Tweet.objects.filter(date=date)
+        negative_tweets = tweets_on_day.filter(output="N")
+        num_tweets_by_day.append(len(negative_tweets))
+
+    df = pd.read_csv('data/ftse.csv')
+    
+    min_tweets = min(num_tweets_by_day)
+    max_tweets = max(num_tweets_by_day)
+    tweets_range = max_tweets - min_tweets
+    
+    normalised_num_tweets = []
+    
+    for num_tweets in num_tweets_by_day:
+        normalised = (num_tweets - min_tweets)/tweets_range
+        normalised_num_tweets.append(normalised)
+
+    df = pd.read_csv('data/negative_proportions.csv')
+    
+    df['Normalised'] = normalised_num_tweets
+    
+    df.to_csv('data/negative_proportions.csv')
+    
+    return
+
+def compute_normalised_news_article_count():
+    
+    num_articles_by_day = []
+
+    for date in dates:
+        articles_on_day = Article.objects.filter(date=date)
+        num_articles_by_day.append(len(articles_on_day))
+            
+    min_articles = min(num_articles_by_day)
+    max_articles = max(num_articles_by_day)
+    articles_range = max_articles - min_articles
+    
+    normalised_num_articles = []
+    
+    for num_articles in num_articles_by_day:
+        normalised = (num_articles - min_articles)/articles_range
+        normalised_num_articles.append(normalised)
+        
+    return normalised_num_articles
+
+def compute_normalised_uk_cases():
+    
+    df = pd.read_csv(urls["confirmed"])    
+    df = df.loc[df['Country/Region'] == "United Kingdom"]
+    
+    # Get records for UK
+    for index, row in df.iterrows():
+        country = ""
+
+        # If there is state named, add to country name
+        if str(row["Province/State"]) == "nan":
+            df = row
+            
+    # Remove unnecessary rows
+    df = df.to_frame()
+    df = df.iloc[4:]
+    df.index = pd.to_datetime(df.index).strftime('%Y-%m-%d')
+
+    # Extract deaths only for within timeframe
+    start_date = "2019-12-25"
+    end_date = "2020-03-25"
+    mask = (df.index > start_date) & (df.index <= end_date)
+    df = df.loc[mask]
+        
+    df = df.rename(columns={223: "Cases"})
+    
+    min_cases = min(df["Cases"])
+    max_cases = max(df["Cases"])
+    cases_range = max_cases - min_cases
+    
+    normalised_cases = []
+    
+    for count in df["Cases"]:
+        normalised = (count - min_cases)/cases_range
+        normalised_cases.append(normalised)
+        
+    df["Normalised"] = normalised_cases
+              
+    df.to_csv('data/cases_normalised.csv', index=True)
+    
+    return
