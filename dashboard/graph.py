@@ -284,13 +284,15 @@ def cross_correlation():
 
     df_tweets = pd.read_csv("data/negative_proportions.csv")
     df_ftse = pd.read_csv("data/ftse.csv")
-    normalised_articles = data.compute_normalised_news_article_count()
+    df_articles = pd.read_csv("data/news_normalised.csv")
+    df_cases = pd.read_csv("data/cases_normalised.csv")
 
     trace_tweets = go.Scatter(x=df_tweets["Date"], y=df_tweets["Normalised"], name="No. of Negative Tweets")
-    trace_article = go.Scatter(x=df_tweets["Date"], y=normalised_articles, name="No. of News Articles")
     trace_ftse = go.Scatter(x=df_ftse["Date"], y=df_ftse["Normalised Price"], name="FTSE Open Price")
+    trace_article = go.Scatter(x=df_tweets["Date"], y=df_articles["Normalised Count"], name="No. of News Articles")
+    trace_cases = go.Scatter(x=df_cases["Date"], y=df_cases["Normalised"], name="No. of COVID-19 Cases", line=dict(color='slategray'))
 
-    traces = [trace_tweets, trace_article, trace_ftse]
+    traces = [trace_tweets, trace_article, trace_ftse, trace_cases]
 
     layout = go.Layout(
         xaxis=dict(

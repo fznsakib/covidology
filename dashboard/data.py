@@ -367,3 +367,45 @@ def compute_normalised_news_article_count():
         normalised_num_articles.append(normalised)
         
     return normalised_num_articles
+
+def compute_normalised_uk_cases():
+    
+    df = pd.read_csv(urls["confirmed"])    
+    df = df.loc[df['Country/Region'] == "United Kingdom"]
+    
+    # Get records for UK
+    for index, row in df.iterrows():
+        country = ""
+
+        # If there is state named, add to country name
+        if str(row["Province/State"]) == "nan":
+            df = row
+            
+    # Remove unnecessary rows
+    df = df.to_frame()
+    df = df.iloc[4:]
+    df.index = pd.to_datetime(df.index).strftime('%Y-%m-%d')
+
+    # Extract deaths only for within timeframe
+    start_date = "2019-12-25"
+    end_date = "2020-03-25"
+    mask = (df.index > start_date) & (df.index <= end_date)
+    df = df.loc[mask]
+        
+    df = df.rename(columns={223: "Cases"})
+    
+    min_cases = min(df["Cases"])
+    max_cases = max(df["Cases"])
+    cases_range = max_cases - min_cases
+    
+    normalised_cases = []
+    
+    for count in df["Cases"]:
+        normalised = (count - min_cases)/cases_range
+        normalised_cases.append(normalised)
+        
+    df["Normalised"] = normalised_cases
+              
+    df.to_csv('data/cases_normalised.csv', index=True)
+    
+    return
