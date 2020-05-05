@@ -1,6 +1,6 @@
 .covidology-logo{
   height: 65px;
-  width: 220px;
+  /* width: 220px; */
   padding-left: 25px
 }
 
@@ -82,11 +82,12 @@
 
 .scroll-action{
   animation-name: move;
-  animation-duration: 80s;
+  animation-duration: 40s;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-delay: 2.5s;
+  background-repeat: round;
 }
 
 
@@ -121,9 +122,9 @@ i:hover{
 }
 
 @keyframes move {
-  0% {left: 0;}
-  50% {left: -4400px;}
-  100% {left: 0;}
+  from {left: 0;}
+  to {left: -6150px;}
+  /* 100% {left: 0;} */
 }
 
 /* @keyframes moveback {

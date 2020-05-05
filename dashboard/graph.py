@@ -346,7 +346,7 @@ def sentiment_by_words():
         font=dict(family="Raleway", color="#FFFFFF",),
         plot_bgcolor="rgba(255,255,255,0.9)",
         margin=dict(l=1, r=1, b=1, t=1, pad=0),
-        width=1000,
+        # width=1000,
         legend_orientation="h",
     )
 
