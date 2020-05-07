@@ -72,17 +72,19 @@ def city_sentiment_map():
         range_color=[0.0,1.0]
     )
 
+    config = {'responsive': True}
+
     fig.update_layout(
-        autosize=True,
-        width=1500,
-        height=600,
-        margin=dict(l=10, r=700, b=10, t=10, pad=4),
+        # autosize=True,
+        # width=70%,
+        height=650,
+        margin=dict(l=30, r=130, b=10, t=10, pad=4),
         template="plotly_dark",
         paper_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Raleway", color="#FFFFFF"),
     )
 
-    output = plot(fig, output_type="div")
+    output = plot(fig, output_type="div", config=config)
     return output
 
 def map():
@@ -103,15 +105,18 @@ def map():
     )
 
     fig.update_layout(
-        autosize=True,
-        width=1500,
-        height=600,
-        margin=dict(l=10, r=700, b=10, t=10, pad=4),
+        # autosize=True,
+        # width=70%,
+        height=650,
+        margin=dict(l=30, r=130, b=10, t=10, pad=4),
         template="plotly_dark",
         paper_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Raleway", color="#FFFFFF"),
     )
-    output = plot(fig, output_type="div")
+
+    config = {'responsive': True}
+
+    output = plot(fig, output_type="div",config=config)
 
     # Convert date format and return to display on page
     latest_date = datetime.datetime.strptime(latest_date, "%m/%d/%y").strftime("%d/%m/%y")
