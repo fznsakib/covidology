@@ -101,40 +101,12 @@
         {{ cases_metrics.9 }}
       </h2>
     </div>
-    <div class="scroll-action col-lg-4">
-      <h1 class="counter">
-       {{ country_metrics.0 }}
-      </h1>
-      <hr>
-      <h2 class="counterB">
-       {{ cases_metrics.0 }}
-      </h2>
-    </div>
-    <div class="scroll-action col-lg-4">
-      <h1 class="counter">
-        {{ country_metrics.1 }}
-      </h1>
-      <hr>
-      <h2 class="counterB">
-        {{ cases_metrics.1 }}
-      </h2>
-    </div>
-    <div class="scroll-action col-lg-4">
-      <h1 class="counter">
-        {{ country_metrics.2 }}
-      </h1>
-      <hr>
-      <h2 class="counterB">
-        {{ cases_metrics.2 }}
-      </h2>
-    </div>
   </div>
 </div>
 
 <!-- Side-scrolling (auto and manual) with API-streamed data inside   -->
 <!-- Segregating Jumbotron with space in the middle: lg-4; gunmetal col -->
-
-<section id="map">
+<section class="map-separator">
   <div class="row justify-content-center mb-5 ml-5 mr-5">
     <div class="jumbotron jumbotron-fluid col-lg-12 mt-4 ml-4 mr-4 boxed-font">
       <h1 class="display-4 map-text">Worldwide COVID-19 Tracker</h1>
@@ -151,9 +123,6 @@
     </div>
   </div>
 
-</section>
-
-<section id="sentiment_heat_map">
   <div class="row justify-content-center mb-5 ml-5 mr-5">
     <div class="jumbotron jumbotron-fluid col-lg-12 mt-4 ml-4 mr-4 boxed-font">
       <h1 class="display-4 map-text">Sentiment Heat Map</h1>
@@ -169,8 +138,10 @@
 
 </section>
 
+<!-- <hr class="map-separator"> -->
+
 <section id="data-section-A">
-  <div class="row ml-0">
+  <div class="row justify-content-between ml-0">
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
     <h1 class="display-4">Number of tweets by sentiment over time</h1>
       <p class="lead"></p>
@@ -179,13 +150,23 @@
         {{ plot_div.0 }}
     {% endautoescape %}
   </div>
+
+  <div class="jumbotron col-lg-5 mr-5 mt-5 boxed-font">
+  <h1 class="display-4">Example Tweets</h1>
+  <p class="lead">A selection of randomly chosen positive, negative and neutral tweets</p>
+  <hr class="my-4 in-box-line">
+  {% autoescape off %}
+      {{ plot_div.1 }}
+  {% endautoescape %}
+  </div>
+
   </div>
 
 </section>
 
 <section id="data-section-B">
-  <div class="row justify-content-end mr-0">
-    <div class="jumbotron col-lg-5 mr-5 boxed-font">
+  <div class="row justify-content-between ml-0">
+    <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
     <h1 class="display-4">Top 20 Most Used Words</h1>
     <p class="lead">Common words, along with the search keywords 'Coronavirus' and 'COVID-19' are excluded.</p>
     <hr class="my-4 in-box-line">
@@ -193,26 +174,34 @@
         {{ plot_div.1 }}
     {% endautoescape %}
     </div>
-  </div>
 
-</section>
-
-<section id="data-section-C">
-  <div class="row ml-0">
-    <div class="jumbotron col-lg-5 ml-5 boxed-font">
+    <div class="jumbotron col-lg-5 mr-5 mt-5 boxed-font">
     <h1 class="display-4">Sentiment Proportions by Keyword</h1>
-    <!-- <p class="lead">This is the third data plot, a simple jumbotron-style component for calling extra attention to featured content or information.</p> -->
     <hr class="my-4 in-box-line">
     {% autoescape off %}
         {{ plot_div.2 }}
     {% endautoescape %}
   </div>
+
   </div>
 
 </section>
 
+<!-- <section id="data-section-C">
+  <div class="row ml-0">
+    <div class="jumbotron col-lg-5 ml-5 boxed-font">
+    <h1 class="display-4">Sentiment Proportions by Keyword</h1>
+    <hr class="my-4 in-box-line">
+    {% autoescape off %}
+        {{ plot_div.2 }}
+    {% endautoescape %}
+  </div>
+  </div> -->
+
+</section>
+
 <section id="data-section-D">
-  <div class="row justify-content-end mr-0">
+  <div class="row justify-content-center mr-0">
     <div class="jumbotron col-lg-5 mr-5 mb-5 boxed-font">
     <h1 class="display-4">Comparison of Negative Twitter Sentiment Related to COVID-19 with Secondary Sources</h1>
     <p class="lead">

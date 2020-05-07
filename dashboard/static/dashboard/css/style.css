@@ -4,6 +4,9 @@
   padding-left: 25px
 }
 
+/* .container{
+  display: inline-block;
+} */
 
 .jumbotron{
   background-color: #2d3142;
@@ -20,6 +23,7 @@
   text-align: center;
   font-weight: 500;
 }
+
 
 .counterB{
   padding-top: 5%;
@@ -88,6 +92,13 @@
   animation-iteration-count: infinite;
   animation-delay: 2.5s;
   background-repeat: round;
+}
+
+.map-separator{
+  width: 100%;
+  /* border: 3px #2d3142 solid; */
+  background-color: rgba(18,19,26,0.1);
+
 }
 
 
