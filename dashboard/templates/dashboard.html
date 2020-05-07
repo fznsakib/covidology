@@ -140,8 +140,9 @@
 
 <!-- <hr class="map-separator"> -->
 
-<section id="data-section-A">
-  <div class="row justify-content-between ml-0">
+<section>
+  <div class="row justify-content-between ml-0 mr-0">
+
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
     <h1 class="display-4">Number of tweets by sentiment over time</h1>
       <p class="lead"></p>
@@ -151,21 +152,28 @@
     {% endautoescape %}
   </div>
 
-  <div class="jumbotron col-lg-5 mr-5 mt-5 boxed-font">
-  <h1 class="display-4">Example Tweets</h1>
-  <p class="lead">A selection of randomly chosen positive, negative and neutral tweets</p>
-  <hr class="my-4 in-box-line">
-  {% autoescape off %}
-      {{ plot_div.1 }}
-  {% endautoescape %}
-  </div>
+  <div class="container col-lg-5 mr-5 mt-5 boxed-font">
+      <div class= "jumbotron twitter-data">
+        <h2 class="display-4">Positive Tweet</h2>
+        <hr class="my-4 in-box-line">
+      </div>
+      <div class= "jumbotron mt-5 twitter-data">
+        <h2 class="display-4">Negative Tweet</h2>
+        <hr class="my-4 in-box-line">
+    </div>
+    <div class= "jumbotron mt-5 twitter-data">
+      <h2 class="display-4">Neutral Tweet</h2>
+      <hr class="my-4 in-box-line">
+    </div>
+
 
   </div>
 
-</section>
 
-<section id="data-section-B">
-  <div class="row justify-content-between ml-0">
+
+  </div>
+
+  <div class="row justify-content-between ml-0 mr-0">
     <div class="jumbotron col-lg-5 ml-5 mt-5 boxed-font">
     <h1 class="display-4">Top 20 Most Used Words</h1>
     <p class="lead">Common words, along with the search keywords 'Coronavirus' and 'COVID-19' are excluded.</p>
@@ -198,11 +206,10 @@
   </div>
   </div> -->
 
-</section>
 
 <section id="data-section-D">
-  <div class="row justify-content-center mr-0">
-    <div class="jumbotron col-lg-5 mr-5 mb-5 boxed-font">
+  <div class="row justify-content-center ml-0 mr-0 mt-5">
+    <div class="jumbotron col-lg-9 mr-5 mb-5 boxed-font">
     <h1 class="display-4">Comparison of Negative Twitter Sentiment Related to COVID-19 with Secondary Sources</h1>
     <p class="lead">
       All variables are normalised to [0, 1] for comparison.<br>
