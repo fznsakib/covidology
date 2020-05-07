@@ -10,10 +10,11 @@
 
 .jumbotron{
   background-color: #2d3142;
+  border-radius: 25px;
 }
 
 .jumbotron-fluid{
-  border-radius: 6px;
+  border-radius: 25px;
 }
 
 .counter{
@@ -95,9 +96,8 @@
 }
 
 .map-separator{
-  width: 100%;
-  /* border: 3px #2d3142 solid; */
-  background-color: rgba(18,19,26,0.1);
+  border-radius:150px;
+  text-align: center;
 
 }
 
