@@ -7,6 +7,8 @@ from nltk.corpus import stopwords
 import nltk
 from dashboard.models import Tweet
 from dashboard.models import Article
+import random as rand
+
 
 
 urls = {
@@ -99,6 +101,42 @@ def get_num_tweets():
         num_tweets["neutral"].append(len(neutral_tweets))
 
     return num_tweets, dates
+
+
+def get_random_example_tweet():
+    example_tweets = {"positive": [], "negative": [], "neutral": []}
+
+    date_index = rand.randint(0,len(dates)-1)
+    date = dates[date_index]
+
+    tweets_today = Tweet.objects.filter(date=date)
+
+    negative_tweets = tweets_today.filter(output="N")
+    positive_tweets = tweets_today.filter(output="P")
+    neutral_tweets = tweets_today.filter(output="Neutral")
+
+    # if there are no tweets for a certain sentiment, select a random date again.
+    # relatively unlikely but takes care of pesky edge cases
+    while( (len(positive_tweets) == 0) or (len(negative_tweets) == 0) or (len(neutral_tweets) == 0)):
+        date_index = rand.randint(0,len(dates))
+        date = dates[date_index]
+
+        tweets_today = Tweet.objects.filter(date=date)
+
+        negative_tweets = tweets_today.filter(output="N")
+        positive_tweets = tweets_today.filter(output="P")
+        neutral_tweets = tweets_today.filter(output="Neutral")
+
+
+    index_pos = rand.randint(0, len(positive_tweets)-1)
+    index_neg = rand.randint(0, len(negative_tweets)-1)
+    index_neutral = rand.randint(0, len(neutral_tweets)-1)
+
+    example_tweets["positive"].append(positive_tweets[index_pos].cleaned_tweet)
+    example_tweets["negative"].append(negative_tweets[index_neg].cleaned_tweet)
+    example_tweets["neutral"].append(neutral_tweets[index_neutral].cleaned_tweet)
+
+    return example_tweets
 
 
 def compute_most_common_words():
@@ -302,25 +340,25 @@ def compute_sentiment_proportions_by_word():
 
 def compute_normalised_ftse():
     df = pd.read_csv('data/ftse.csv')
-    
+
     min_price = df['Open Price'].min()
     max_price = df['Open Price'].max()
     price_range = max_price - min_price
-    
+
     normalised_prices = []
-    
+
     for price in df['Open Price']:
         normalised = 1 - ((price - min_price)/price_range)
         normalised_prices.append(normalised)
 
     df['Normalised Price'] = normalised_prices
-    
+
     df.to_csv('data/new_ftse.csv')
-    
+
     return
 
 def compute_normalised_negative_tweets():
-    
+
     num_tweets_by_day = []
 
     for date in dates:
@@ -329,50 +367,50 @@ def compute_normalised_negative_tweets():
         num_tweets_by_day.append(len(negative_tweets))
 
     df = pd.read_csv('data/ftse.csv')
-    
+
     min_tweets = min(num_tweets_by_day)
     max_tweets = max(num_tweets_by_day)
     tweets_range = max_tweets - min_tweets
-    
+
     normalised_num_tweets = []
-    
+
     for num_tweets in num_tweets_by_day:
         normalised = (num_tweets - min_tweets)/tweets_range
         normalised_num_tweets.append(normalised)
 
     df = pd.read_csv('data/negative_proportions.csv')
-    
+
     df['Normalised'] = normalised_num_tweets
-    
+
     df.to_csv('data/negative_proportions.csv')
-    
+
     return
 
 def compute_normalised_news_article_count():
-    
+
     num_articles_by_day = []
 
     for date in dates:
         articles_on_day = Article.objects.filter(date=date)
         num_articles_by_day.append(len(articles_on_day))
-            
+
     min_articles = min(num_articles_by_day)
     max_articles = max(num_articles_by_day)
     articles_range = max_articles - min_articles
-    
+
     normalised_num_articles = []
-    
+
     for num_articles in num_articles_by_day:
         normalised = (num_articles - min_articles)/articles_range
         normalised_num_articles.append(normalised)
-        
+
     return normalised_num_articles
 
 def compute_normalised_uk_cases():
-    
-    df = pd.read_csv(urls["confirmed"])    
+
+    df = pd.read_csv(urls["confirmed"])
     df = df.loc[df['Country/Region'] == "United Kingdom"]
-    
+
     # Get records for UK
     for index, row in df.iterrows():
         country = ""
@@ -380,7 +418,7 @@ def compute_normalised_uk_cases():
         # If there is state named, add to country name
         if str(row["Province/State"]) == "nan":
             df = row
-            
+
     # Remove unnecessary rows
     df = df.to_frame()
     df = df.iloc[4:]
@@ -391,21 +429,21 @@ def compute_normalised_uk_cases():
     end_date = "2020-03-25"
     mask = (df.index > start_date) & (df.index <= end_date)
     df = df.loc[mask]
-        
+
     df = df.rename(columns={223: "Cases"})
-    
+
     min_cases = min(df["Cases"])
     max_cases = max(df["Cases"])
     cases_range = max_cases - min_cases
-    
+
     normalised_cases = []
-    
+
     for count in df["Cases"]:
         normalised = (count - min_cases)/cases_range
         normalised_cases.append(normalised)
-        
+
     df["Normalised"] = normalised_cases
-              
+
     df.to_csv('data/cases_normalised.csv', index=True)
-    
+
     return

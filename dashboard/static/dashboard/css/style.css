@@ -139,7 +139,7 @@ i:hover{
 
 @keyframes move {
   from {left: 0;}
-  to {left: -6150px;}
+  to {left: -4950px;}
   /* 100% {left: 0;} */
 }
 
