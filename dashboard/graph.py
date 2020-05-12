@@ -123,7 +123,13 @@ def map():
 
     return output, latest_date
 
+"""
+Line graph showing number of tweets for each sentiment over the time period
+x = dates
+y = number of tweets
 
+Data in num_tweets_by_sentiment.csv
+"""
 def num_tweets():
     # get positive, negative, neutral tweet numbers per day
     num_tweets, dates = data.get_num_tweets()
@@ -262,6 +268,14 @@ def num_tweets():
     return output
 
 
+"""
+Bar graph showing top 20 most used words in tweets collected
+x = count
+y = word
+
+Data in top_words.csv (There's ~1700 words in this, ordered by count)
+
+"""
 def most_common_words():
 
     df = pd.read_csv("data/top_words.csv")
@@ -300,6 +314,14 @@ def most_common_words():
     return output
 
 
+"""
+Dot plot showing keywords and the proportion of their tweets found showing each sentiment
+x = proportion
+y = keyword
+
+Data in sentiment_by_keyword.csv
+
+"""
 def sentiment_by_words():
 
     df = pd.read_csv("data/sentiment_by_keyword.csv")
