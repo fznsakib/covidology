@@ -8,6 +8,15 @@
   display: inline-block;
 } */
 
+.top-line{
+  width: auto;
+}
+
+.top-font{
+  font-family: "Montserrat",sans-serif;
+  color: white;
+}
+
 .jumbotron{
   background-color: #2d3142;
   border-radius: 25px;
@@ -81,9 +90,9 @@
   position: relative;
 }
 
-.scroll-counter-data > .row > .col-lg-4:hover{
+/* .scroll-counter-data > .row > .col-lg-4:hover{
     border: 2px solid #FFFFFF;
-}
+} */
 
 .scroll-action{
   animation-name: move;
@@ -98,6 +107,13 @@
 .map-separator{
   border-radius:150px;
   text-align: center;
+
+}
+
+.scroll-separator{
+  /* border-radius:150px; */
+  text-align: center;
+  color:#2d3142;
 
 }
 
@@ -133,9 +149,9 @@ hr.in-box-line{
   border-bottom: 1.5px rgba(0, 0, 0, 0.25) solid;
 }
 
-i:hover{
+/* i:hover{
   color: #09bc8a;
-}
+} */
 
 @keyframes move {
   from {left: 0;}

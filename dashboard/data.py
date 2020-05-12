@@ -106,27 +106,11 @@ def get_num_tweets():
 def get_random_example_tweet():
     example_tweets = {"positive": [], "negative": [], "neutral": []}
 
-    date_index = rand.randint(0,len(dates)-1)
-    date = dates[date_index]
-
-    tweets_today = Tweet.objects.filter(date=date)
+    tweets_today = Tweet.objects.all()
 
     negative_tweets = tweets_today.filter(output="N")
     positive_tweets = tweets_today.filter(output="P")
     neutral_tweets = tweets_today.filter(output="Neutral")
-
-    # if there are no tweets for a certain sentiment, select a random date again.
-    # relatively unlikely but takes care of pesky edge cases
-    while( (len(positive_tweets) == 0) or (len(negative_tweets) == 0) or (len(neutral_tweets) == 0)):
-        date_index = rand.randint(0,len(dates))
-        date = dates[date_index]
-
-        tweets_today = Tweet.objects.filter(date=date)
-
-        negative_tweets = tweets_today.filter(output="N")
-        positive_tweets = tweets_today.filter(output="P")
-        neutral_tweets = tweets_today.filter(output="Neutral")
-
 
     index_pos = rand.randint(0, len(positive_tweets)-1)
     index_neg = rand.randint(0, len(negative_tweets)-1)
