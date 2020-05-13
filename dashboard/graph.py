@@ -85,6 +85,7 @@ def city_sentiment_map():
     )
 
     output = plot(fig, output_type="div", config=config)
+        
     return output
 
 def map():
@@ -264,6 +265,7 @@ def num_tweets():
     )
 
     output = plot(dict(data=traces, layout=layout), config=config, output_type="div")
+    # plot(dict(data=traces, layout=layout), config=config, filename='num_tweets.html', output_type='file',include_plotlyjs=True)
 
     return output
 

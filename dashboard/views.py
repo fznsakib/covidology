@@ -7,6 +7,8 @@ import plotly.express as px
 import copy
 import json
 import random as rand
+import codecs
+import time
 
 import dashboard.data as data
 import dashboard.graph as graph
@@ -14,29 +16,29 @@ import dashboard.graph as graph
 from dashboard.models import Tweet
 from django.http import JsonResponse
 
-
 def dashboard(request):
 
-    plot5_div = graph.city_sentiment_map()
+    # Load static graphs -- 0.016s
+    plot0_div = codecs.open('dashboard/static/num_tweets.html', 'r').read()
+    plot1_div = codecs.open('dashboard/static/most_common_words.html', 'r').read()
+    plot2_div = codecs.open('dashboard/static/sentiment_by_keyword.html', 'r').read()
+    plot3_div = codecs.open('dashboard/static/cross_correlation.html', 'r').read()
+    
+    # Load maps -- 1.78s
     plot4_div, latest_date = graph.map()
-
-    plot0_div = graph.num_tweets()
-
-    plot1_div = graph.most_common_words()
-
-    plot2_div = graph.sentiment_by_words()
-
-    plot3_div = graph.cross_correlation()
-
+    plot5_div = codecs.open('dashboard/static/sentiment_map.html', 'r').read()
+    
+    # Get cases -- 0.658s
     global_cases = data.get_global()
     top10 = data.get_top10()
     top10_countries, top10_cases = zip(*top10)
-
+    
+    # Get tweets -- 0.591s
     random_tweets = data.get_random_example_tweet()
     random_positive_tweet = random_tweets["positive"][0]
     random_neutral_tweet = random_tweets["neutral"][0]
     random_negative_tweet = random_tweets["negative"][0]
-
+    
     return render(
         request,
         "dashboard.html",
