@@ -155,7 +155,7 @@ hr.in-box-line{
 
 @keyframes move {
   from {left: 0;}
-  to {left: -4950px;}
+  to {left: -333%;}
   /* 100% {left: 0;} */
 }
 
