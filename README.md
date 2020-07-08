@@ -1,8 +1,8 @@
-
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/15062683/86980096-0582cc00-c194-11ea-8000-dc0f100dfc03.png" alt="covidology" width=500>
+  <img src="https://user-images.githubusercontent.com/15062683/86980273-7924d900-c194-11ea-9cb4-1eb476ccf450.png" alt="covidology" width=500>
 </p>
 
+---
 
 This goal of this project was to perform the analysis of the geographic sentiment distribution related to the COVID-19 pandemic specifically in the UK. The evaluation of the sentiment analysis, and the model itself, is presented as a Django-based web application which can be viewed at [covidology.uk](covidology.uk).
 
