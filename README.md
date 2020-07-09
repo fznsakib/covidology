@@ -2,7 +2,9 @@
   <img src="https://user-images.githubusercontent.com/15062683/86980273-7924d900-c194-11ea-9cb4-1eb476ccf450.png" alt="covidology" width=500>
 </p>
 
----
+<h1 align="center">
+Geographic Sentiment Distribution of COVID-19 in the UK
+</h1>
 
 The goal of this project was to perform the analysis of the geographic sentiment distribution related to the COVID-19 pandemic specifically in the UK. To achieve this, a machine learning model in the form of an SVM, pre-trained on the [Sentiment140](https://www.kaggle.com/kazanova/sentiment140) dataset, was created for the classification of sentiment. Word2Vec was used to learn vector representations of individual words, helping to classify texts as negative, positive or neutral. The model was used to perform sentiment classification on a self-curated dataset of ~29000 tweets related to COVID-19.
 
