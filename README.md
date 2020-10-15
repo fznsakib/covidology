@@ -12,7 +12,7 @@ The goal of this project was to perform the analysis of the geographic sentiment
   <img src="https://user-images.githubusercontent.com/15062683/87018549-77820200-c1e2-11ea-99a8-2ab360b2adbc.png" alt="heatmap" width=700>
 </p>
 
-The report detailing all aspects of the project can be viewed [here](/report.pdf)
+The report detailing all aspects of the project can be viewed [here](/report.pdf).
 
 The evaluation of the sentiment analysis is presented using a Django-based web application which can be viewed at [covidology.uk](covidology.uk).
 
